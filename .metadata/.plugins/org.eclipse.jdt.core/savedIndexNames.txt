@@ -1,0 +1,1 @@
+INDEX VERSION 1.129+C:\Users\Chris\Documents\GitHub\AI-Project\.metadata\.plugins\org.eclipse.jdt.core
