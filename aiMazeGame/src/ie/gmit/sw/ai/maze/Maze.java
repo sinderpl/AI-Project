@@ -2,7 +2,9 @@ package ie.gmit.sw.ai.maze;
 
 public class Maze {
 	private char[][] maze;
-	public Maze(int dimension){
+	private MazeGenerator generator;
+	public Maze(MazeGenerator generator, int dimension){
+		this.generator = generator;
 		maze = new char[dimension][dimension];
 		init();
 		buildMaze();
@@ -46,6 +48,8 @@ public class Maze {
 	}
 	
 	private void buildMaze(){ 
+		//System.out.println(generator.getMaze().toString().toCharArray());
+		//maze = generator.getMaze();
 		for (int row = 1; row < maze.length - 1; row++){
 			for (int col = 1; col < maze[row].length - 1; col++){
 				int num = (int) (Math.random() * 10);
