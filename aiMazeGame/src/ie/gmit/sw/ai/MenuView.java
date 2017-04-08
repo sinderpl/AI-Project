@@ -34,7 +34,7 @@ public class MenuView extends JFrame{
 						setVisibility();
 					break;
 				case "mazeType":
-					System.out.println(((JRadioButton) e.getSource()).getText());
+					mazeType = ((JRadioButton) e.getSource()).getText();
 				}
 
 			} catch (Exception e1) {
@@ -63,7 +63,7 @@ public class MenuView extends JFrame{
 		//Create the radio buttons for maze creation and add to group
 		//List<String> mazeArray = Arrays.asList("HuntAndKill", "asd");
 		ArrayList<String> mazeArray = new ArrayList<String>(Arrays.asList("HuntAndKill", "BinaryTree", "RandomDepthFirst",
-				"RecursiveBacktracker", "RecursiveDivsion" , "RandomizePrim", "RandomizedKrushkal"));
+				"RecursiveBacktracker", "RecursiveDivision" , "RandomizedPrim", "RandomizedKruskal"));
 		
 		ArrayList<JRadioButton> mazeRadioButtons = new ArrayList<JRadioButton>();
 		
@@ -116,6 +116,7 @@ public class MenuView extends JFrame{
 
 	//Start the game 
 	public void startGame() throws Exception{
+		System.out.println(mazeType);
 		new GameRunner(mazeType);
 	}
 	

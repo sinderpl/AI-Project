@@ -5,15 +5,59 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import ie.gmit.sw.ai.maze.Maze;
+import ie.gmit.sw.ai.maze.MazeGenerator;
+import ie.gmit.sw.ai.maze.MazeGeneratorFactory;
+import ie.gmit.sw.ai.maze.Node;
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 100;
 	private static final int IMAGE_COUNT = 14;
 	private GameView view;
 	private Maze model;
+	private Node[][] maze;
 	private int currentRow;
 	private int currentCol;
+	private MazeGenerator generator;
+	//private static String mazeAlgo ="HuntAndKill";
 	
-	public GameRunner() throws Exception{
+	//GameRunner takes in String mazeAlgo as parameter for Maze Generation
+	public GameRunner(String mazeAlgo) throws Exception{
+		MazeGeneratorFactory factory = MazeGeneratorFactory.getInstance();
+		System.out.println(mazeAlgo);
+		switch (mazeAlgo) {
+		case "BinaryTree":
+			System.out.println("BinaryTree Selected");
+			generator = factory.getMazeGenerator(MazeGenerator.GeneratorAlgorithm.BinaryTree, MAZE_DIMENSION, MAZE_DIMENSION);
+			break;
+		case "HuntAndKill":
+			System.out.println("HuntAndKill Selected");
+			generator = factory.getMazeGenerator(MazeGenerator.GeneratorAlgorithm.HuntAndKill, MAZE_DIMENSION, MAZE_DIMENSION);
+			break;
+		case "RandomDepthFirst":
+			System.out.println("RandomDepthFirst Selected");
+			generator = factory.getMazeGenerator(MazeGenerator.GeneratorAlgorithm.RandomDepthFirst, MAZE_DIMENSION, MAZE_DIMENSION);
+			break;
+		case "RandomizedKruskal":
+			System.out.println("RandomizedKruskal Selected");
+			generator = factory.getMazeGenerator(MazeGenerator.GeneratorAlgorithm.RandomizedKruskal, MAZE_DIMENSION, MAZE_DIMENSION);
+			break;
+		case "RandomizedPrim":
+			System.out.println("RandomizedPrim Selected");
+			generator = factory.getMazeGenerator(MazeGenerator.GeneratorAlgorithm.RandomizedPrim, MAZE_DIMENSION, MAZE_DIMENSION);
+			break;
+		case "RecursiveBacktracker":
+			System.out.println("RecursiveBacktracker Selected");
+			generator = factory.getMazeGenerator(MazeGenerator.GeneratorAlgorithm.RecursiveBacktracker, MAZE_DIMENSION, MAZE_DIMENSION);
+			break;
+		case "RecursiveDivision":
+			System.out.println("RecursiveDivision Selected");
+			generator = factory.getMazeGenerator(MazeGenerator.GeneratorAlgorithm.RecursiveDivision, MAZE_DIMENSION, MAZE_DIMENSION);
+			break;
+		default:
+			break;
+		}
+		
+		maze = generator.getMaze();
+		
 		model = new Maze(MAZE_DIMENSION);
     	view = new GameView(model);
     	
@@ -101,9 +145,5 @@ public class GameRunner implements KeyListener{
 		sprites[12] = new Sprite("Red Spider", "resources/red_spider_1.png", "resources/red_spider_2.png");
 		sprites[13] = new Sprite("Yellow Spider", "resources/yellow_spider_1.png", "resources/yellow_spider_2.png");
 		return sprites;
-	}
-	
-	public static void main(String[] args) throws Exception{
-		new GameRunner();
 	}
 }

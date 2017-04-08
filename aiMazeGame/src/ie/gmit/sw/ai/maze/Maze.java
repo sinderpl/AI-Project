@@ -1,6 +1,5 @@
 package ie.gmit.sw.ai.maze;
 
-
 public class Maze {
 	private char[][] maze;
 	public Maze(int dimension){
