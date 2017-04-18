@@ -83,7 +83,7 @@ public class GameRunner implements KeyListener{
 	private void placePlayer(){   	
     	currentRow = (int) (MAZE_DIMENSION * Math.random());
     	currentCol = (int) (MAZE_DIMENSION * Math.random());
-    	model.set(currentRow, currentCol, '5'); //A Spartan warrior is at index 5
+    	model.set(currentRow, currentCol, new Node(currentRow, currentCol, 5)); //A Spartan warrior is at index 5
     	updateView(); 		
 	}
 	

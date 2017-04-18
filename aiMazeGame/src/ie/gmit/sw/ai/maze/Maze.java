@@ -1,11 +1,11 @@
 package ie.gmit.sw.ai.maze;
 
 public class Maze {
-	private char[][] maze;
+	private Node[][] maze;
 	private MazeGenerator generator;
 	public Maze(MazeGenerator generator, int dimension){
 		this.generator = generator;
-		maze = new char[dimension][dimension];
+		maze = new Node[dimension][dimension];
 		init();
 		buildMaze();
 		
@@ -29,49 +29,47 @@ public class Maze {
 	private void init(){
 		for (int row = 0; row < maze.length; row++){
 			for (int col = 0; col < maze[row].length; col++){
-				maze[row][col] = '0'; //Index 0 is a hedge...
+				maze[row][col] = new Node(row,col, 0); //Index 0 is a hedge...
 			}
 		}
 	}
 	
-	private void addFeature(char feature, char replace, int number){
+	private void addFeature(int feature, int replace, int number){
 		int counter = 0;
 		while (counter < feature){
 			int row = (int) (maze.length * Math.random());
 			int col = (int) (maze[0].length * Math.random());
 			
-			if (maze[row][col] == replace){
-				maze[row][col] = feature;
+			if (maze[row][col].getNodeType() == replace){
+				maze[row][col].setNodeType(feature);
 				counter++;
 			}
 		}
 	}
 	
 	private void buildMaze(){ 
-		//System.out.println(generator.getMaze().toString().toCharArray());
-		//maze = generator.getMaze();
 		for (int row = 1; row < maze.length - 1; row++){
 			for (int col = 1; col < maze[row].length - 1; col++){
 				int num = (int) (Math.random() * 10);
 				if (num > 5 && col + 1 < maze[row].length - 1){
-					maze[row][col + 1] = '\u0020'; //\u0020 = 0x20 = 32 (base 10) = SPACE
+					maze[row][col + 1].setNodeType(-1); //\u0020 = 0x20 = 32 (base 10) = SPACE
 				}else{
-					if (row + 1 < maze.length - 1)maze[row + 1][col] = '\u0020';
+					if (row + 1 < maze.length - 1)maze[row + 1][col].setNodeType(-1);
 				}
 			}
 		}		
 	}
 	
-	public char[][] getMaze(){
+	public Node[][] getMaze(){
 		return this.maze;
 	}
 	
-	public char get(int row, int col){
+	public Node get(int row, int col){
 		return this.maze[row][col];
 	}
 	
-	public void set(int row, int col, char c){
-		this.maze[row][col] = c;
+	public void set(int row, int col, Node n){
+		this.maze[row][col] = n;
 	}
 	
 	public int size(){
