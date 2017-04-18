@@ -11,10 +11,23 @@ public class Node {
 	private int row = -1;
 	private int col = -1;
 	private int distance;
+	private int nodeType;
 	
-	public Node(int row, int col) {
+	public Node(int row, int col, int nodeType) {
 		this.row = row;
 		this.col = col;
+		this.nodeType = nodeType;
+	}
+	
+	
+	//Set the type of the node
+	public void setNodeType(int nodeType){
+		this.nodeType = nodeType;
+	}
+	
+	//Get the node type
+	public int getNodeType(){
+		return this.nodeType;
 	}
 
 	public int getRow() {
