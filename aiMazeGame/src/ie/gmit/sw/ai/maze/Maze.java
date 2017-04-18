@@ -48,7 +48,8 @@ public class Maze {
 	}
 	
 	private void buildMaze(){
-		for (int row = 1; row < maze.length - 1; row++){
+		generator.getMaze();
+		/*for (int row = 1; row < maze.length - 1; row++){
 			for (int col = 1; col < maze[row].length - 1; col++){
 				int num = (int) (Math.random() * 10);
 				if (num > 5 && col + 1 < maze[row].length - 1){
@@ -57,7 +58,7 @@ public class Maze {
 					if (row + 1 < maze.length - 1)maze[row + 1][col].setNodeType(-1);
 				}
 			}
-		}		
+		}	*/	
 	}
 	
 	public Node[][] getMaze(){
