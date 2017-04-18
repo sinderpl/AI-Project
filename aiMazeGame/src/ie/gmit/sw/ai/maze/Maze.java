@@ -47,7 +47,7 @@ public class Maze {
 		}
 	}
 	
-	private void buildMaze(){ 
+	private void buildMaze(){
 		for (int row = 1; row < maze.length - 1; row++){
 			for (int col = 1; col < maze[row].length - 1; col++){
 				int num = (int) (Math.random() * 10);
