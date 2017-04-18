@@ -37,7 +37,7 @@ public abstract class AbstractMazeGenerator implements MazeGenerator {
 	protected void init() {
 		for (int row = 0; row < maze.length; row++){
 			for (int col = 0; col < maze[row].length; col++){
-				maze[row][col] = new Node(row, col);
+				maze[row][col] = new Node(row, col, 0);
 			}
 		}
 	}
