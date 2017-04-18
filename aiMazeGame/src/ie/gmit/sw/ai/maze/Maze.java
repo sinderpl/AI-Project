@@ -3,8 +3,8 @@ package ie.gmit.sw.ai.maze;
 public class Maze {
 	private Node[][] maze;
 	private MazeGenerator generator;
-	private Object lock;
-	private ThreadPool pool = new ThreadPool();
+	private Object lock = new Object();
+	private ThreadPool pool = new ThreadPool(50);
 	public Maze(MazeGenerator generator, int dimension){
 		this.generator = generator;
 		maze = new Node[dimension][dimension];
@@ -19,9 +19,8 @@ public class Maze {
 		addFeature(4, 0, featureNumber); //4 is a hydrogen bomb, 0 is a hedge
 		//0 is empty
 		
-		featureNumber = (int)((dimension * dimension) * 0.005);
-		//This can be used for changing the difficulty
-		
+		//featureNumber = (int)((dimension * dimension) * 0.005);
+		featureNumber = 1;
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
 		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
 		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
