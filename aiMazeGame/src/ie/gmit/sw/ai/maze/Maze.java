@@ -3,19 +3,20 @@ package ie.gmit.sw.ai.maze;
 public class Maze {
 	private Node[][] maze;
 	private MazeGenerator generator;
+	private Object lock;
 	public Maze(MazeGenerator generator, int dimension){
 		this.generator = generator;
 		maze = new Node[dimension][dimension];
 		init();
 		buildMaze();
 		
-		int featureNumber = (int)((dimension * dimension) * 0.01);
+		int featureNumber = (int)((dimension * dimension) * 0.005);
 		addFeature(1, 0, featureNumber); //1 is a sword, 0 is a hedge
 		addFeature(2, 0, featureNumber); //2 is help, 0 is a hedge
 		addFeature(3, 0, featureNumber); //3 is a bomb, 0 is a hedge
 		addFeature(4, 0, featureNumber); //4 is a hydrogen bomb, 0 is a hedge
 		
-		featureNumber = (int)((dimension * dimension) * 0.01);
+		featureNumber = (int)((dimension * dimension) * 0.005);
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
 		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
 		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
@@ -36,20 +37,24 @@ public class Maze {
 	
 	private void addFeature(int feature, int replace, int number){
 		int counter = 0;
-		while (counter < feature){
+		while (counter < number){
 			int row = (int) (maze.length * Math.random());
 			int col = (int) (maze[0].length * Math.random());
 			
 			if (maze[row][col].getNodeType() == replace){
-				maze[row][col].setNodeType(feature);
+				if(feature > 5){
+					maze[row][col] = new Spider(row, col, feature, lock, maze);
+				}
+				else{
+					maze[row][col].setNodeType(feature);
+				}
 				counter++;
 			}
 		}
 	}
 	
 	private void buildMaze(){
-		generator.getMaze();
-		/*for (int row = 1; row < maze.length - 1; row++){
+		for (int row = 1; row < maze.length - 1; row++){
 			for (int col = 1; col < maze[row].length - 1; col++){
 				int num = (int) (Math.random() * 10);
 				if (num > 5 && col + 1 < maze[row].length - 1){
@@ -58,7 +63,7 @@ public class Maze {
 					if (row + 1 < maze.length - 1)maze[row + 1][col].setNodeType(-1);
 				}
 			}
-		}	*/	
+		}		
 	}
 	
 	public Node[][] getMaze(){
