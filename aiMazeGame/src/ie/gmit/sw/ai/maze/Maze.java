@@ -4,9 +4,11 @@ public class Maze {
 	private Node[][] maze;
 	private MazeGenerator generator;
 	private Object lock;
+	private ThreadPool pool = new ThreadPool();
 	public Maze(MazeGenerator generator, int dimension){
 		this.generator = generator;
 		maze = new Node[dimension][dimension];
+		this.generator = generator;
 		init();
 		buildMaze();
 		
@@ -15,8 +17,11 @@ public class Maze {
 		addFeature(2, 0, featureNumber); //2 is help, 0 is a hedge
 		addFeature(3, 0, featureNumber); //3 is a bomb, 0 is a hedge
 		addFeature(4, 0, featureNumber); //4 is a hydrogen bomb, 0 is a hedge
+		//0 is empty
 		
 		featureNumber = (int)((dimension * dimension) * 0.005);
+		//This can be used for changing the difficulty
+		
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
 		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
 		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
@@ -43,7 +48,7 @@ public class Maze {
 			
 			if (maze[row][col].getNodeType() == replace){
 				if(feature > 5){
-					maze[row][col] = new Spider(row, col, feature, lock, maze);
+					maze[row][col] = new Spider(row, col, feature, lock,pool, maze);
 				}
 				else{
 					maze[row][col].setNodeType(feature);
@@ -63,7 +68,7 @@ public class Maze {
 					if (row + 1 < maze.length - 1)maze[row + 1][col].setNodeType(-1);
 				}
 			}
-		}		
+		}
 	}
 	
 	public Node[][] getMaze(){
