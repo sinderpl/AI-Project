@@ -2,9 +2,7 @@ package ie.gmit.sw.ai.maze;
 
 public class Maze {
 	private Node[][] maze;
-	private MazeGenerator generator;
-	public Maze(MazeGenerator generator, int dimension){
-		this.generator = generator;
+	public Maze(int dimension){
 		maze = new Node[dimension][dimension];
 		init();
 		buildMaze();

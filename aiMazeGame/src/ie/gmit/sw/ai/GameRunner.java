@@ -56,7 +56,7 @@ public class GameRunner implements KeyListener{
 			break;
 		}
 		
-		model = new Maze(generator,MAZE_DIMENSION);
+		model = new Maze(MAZE_DIMENSION);
     	view = new GameView(model);
     	
     	Sprite[] sprites = getSprites();
