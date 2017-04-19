@@ -51,4 +51,10 @@ public class BasicHillClimbingTraversator implements Traversator{
 			next = null;
 		}
 	}
+
+	@Override
+	public Node getNextNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

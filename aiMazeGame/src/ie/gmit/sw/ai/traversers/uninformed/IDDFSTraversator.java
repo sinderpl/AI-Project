@@ -67,4 +67,10 @@ public class IDDFSTraversator implements Traversator{
 			}
 		}
 	}
+
+	@Override
+	public Node getNextNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

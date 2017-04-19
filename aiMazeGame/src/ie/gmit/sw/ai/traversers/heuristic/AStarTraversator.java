@@ -7,8 +7,8 @@ import ie.gmit.sw.ai.traversers.TraversatorStats;
 
 import java.util.*;
 public class AStarTraversator implements Traversator{
-	private Node goal;
-	private LinkedList<Node> pathToGoal = null;
+	private Node goal; 
+	 private LinkedList<Node> path = null;
 	
 	public AStarTraversator(Node goal){
 		this.goal = goal;
@@ -21,6 +21,7 @@ public class AStarTraversator implements Traversator{
     	
 		PriorityQueue<Node> open = new PriorityQueue<Node>(20, (Node current, Node next)-> (current.getPathCost() + current.getHeuristic(goal)) - (next.getPathCost() + next.getHeuristic(goal)));
 		java.util.List<Node> closed = new ArrayList<Node>();
+		path = new LinkedList<>();
     	   	
 		open.offer(node);
 		node.setPathCost(0);		
@@ -58,22 +59,15 @@ public class AStarTraversator implements Traversator{
 					child.setParent(node);
 					child.setPathCost(node.getPathCost() + 1);
 					open.add(child);
+					
 				}
-			}									
-		}
+			}				
+			
+		}path.addFirst(closed.get(0));
 	}
-	
-	public Node getNextNode(){
 
-	    if(pathToGoal.size() > 0){
-
-	        return pathToGoal.getFirst();
-        }
-        else
-        {
-
-	        return null;
-        } // if
-
-    } // getNextNode()
+	@Override
+	public Node getNextNode() {
+		return path.getFirst();
+	}
 }

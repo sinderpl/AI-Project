@@ -48,4 +48,10 @@ public class SteepestAscentHillClimbingTraversator implements Traversator{
 			}
 		}
 	}
+
+	@Override
+	public Node getNextNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -9,7 +9,7 @@ import ie.gmit.sw.ai.traversers.heuristic.AStarTraversator;
 
 //A spider class, it extends Node so that it can be applied to the Maze array.
 public class Spider extends Node{
-	
+
 	//Pool for reference
 	private ExecutorService pool;
 	//Lock object
@@ -17,11 +17,13 @@ public class Spider extends Node{
 	//Maze reference variable
 	Node[][] maze;
 	private ExecutorService executor = Executors.newFixedThreadPool(1);
-	
+
 	private Player player = null;
-	
+	private Node nextPosition;
+	private boolean canMove = false;
+
 	public Spider(int row, int col, int nodeType, Object lock, ThreadPool pool, Node[][] maze, Player player) {
-		
+
 		//Set the location variables in the parent
 		super(row, col, nodeType);
 		//Assign the pool variable to the local var
@@ -32,71 +34,121 @@ public class Spider extends Node{
 		this.maze = maze;
 		//Player variable
 		this.player = player;
-		
+
 		//Execute the spider movement in a thread
-		pool.getPool().submit(() ->{
+		executor.submit(() ->{
 			while(true){
-			try{
-				//Time between movements
-				Thread.sleep(2000);
-				// Move around the maze
-				//roam();
-				traverse(getRow(), getCol());
-				
-			}catch (Exception e) {
-				System.out.println(e);
-			}
+				try{
+					//Time between movements
+					Thread.sleep(3000);
+					//Find the path to take
+					traverse(getRow(), getCol());
+					// Move around the maze
+					if(canMove ){       
+						roam();  
+					} else {               
+						randomMove();       
+					}
+
+				}catch (Exception e) {
+					System.out.println(e);
+				}
 			}
 		});			
 	}
-	
+
 	//Roam around the map
 	public void roam(){
+		if(nextPosition != null){
+			synchronized(lock){
+				// Figure out all the nodes around
+				Node[] surroundingNodes = adjacentNodes(maze);
+				//List of empty surrounding nodes
+				ArrayList<Node> emptySurroundingNodes = new ArrayList<>();
+
+
+				// Check if they are empty
+				for(Node n : surroundingNodes){
+					if(nextPosition.equals(n))
+					{
+						System.out.println(true);		
+						//New position of the object
+						int newPositionX, newPositionY;
+						//Previous position of the object
+						int previousPositonX = getRow(), previousPositionY = getCol();
+
+						newPositionX = nextPosition.getRow();
+						newPositionY = nextPosition.getCol();
+
+						setRow(newPositionX);
+						setCol(newPositionY);
+
+						maze[newPositionX][newPositionY] = (Spider)this;
+						maze[previousPositonX][previousPositionY] = nextPosition;
+						nextPosition = null;
+						canMove = false;
+						return;
+					}	
+				}
+				// Move to random in empty
+				randomMove();
+
+				nextPosition = null;
+				canMove = false;
+				return;
+			}
+		}
+		else{
+			randomMove();
+
+			canMove = false;
+		}
+	}
+	private void randomMove() {
 		synchronized(lock){
 			// Figure out all the nodes around
 			Node[] surroundingNodes = adjacentNodes(maze);
 			//List of empty surrounding nodes
 			ArrayList<Node> emptySurroundingNodes = new ArrayList<>();
-			
-			
+
+
 			// Check if they are empty
 			for(Node n : surroundingNodes){
-				if (n.getNodeType() == -1){
+				if(n.getNodeType() == -1)
+				{
 					emptySurroundingNodes.add(n);
 				}
 			}
-			// Move to random in empty
 			
 			if(emptySurroundingNodes.size() > 0){
+				Random random = new Random();
+				int position = random.nextInt(emptySurroundingNodes.size());
+				
 				//New position of the object
-				 int newPositionX, newPositionY;
-				 //Previous position of the object
-				 int previousPositonX = getRow(), previousPositionY = getCol();
-				 
-				 
-				 //Choose a position to move to from the array of available nodes
-				 Random random = new Random();
-				 int position = random.nextInt(emptySurroundingNodes.size());
-				 newPositionX = emptySurroundingNodes.get(position).getRow();
-				 newPositionY = emptySurroundingNodes.get(position).getCol();
-				 
-				 setRow(newPositionX);
-				 setCol(newPositionY);
-				 maze[newPositionX][newPositionY] = (Spider)this;
-				 maze[previousPositonX][previousPositionY] = emptySurroundingNodes.get(position);
-				 
+				int newPositionX, newPositionY;
+				//Previous position of the object
+				int previousPositonX = getRow(), previousPositionY = getCol();
+
+				newPositionX = nextPosition.getRow();
+				newPositionY = nextPosition.getCol();
+
+				setRow(newPositionX);
+				setCol(newPositionY);
+
+				maze[newPositionX][newPositionY] = (Spider)this;
+				maze[previousPositonX][previousPositionY] = nextPosition;
 			}
-			
 		}
-		
 	}
-	
 	public void traverse(int row, int col){
-		synchronized(lock){
-		Traversator t = new AStarTraversator(player);
-		t.traverse(maze, maze[row][col]);
-		}
+			Traversator t = new AStarTraversator(player);
+			t.traverse(maze, maze[row][col]);
+			nextPosition = t.getNextNode();
+			
+			if(nextPosition != null){
+	            canMove = true;
+	        } else {
+	        	canMove = false;
+	        }
 	}
-	
-	
 }
