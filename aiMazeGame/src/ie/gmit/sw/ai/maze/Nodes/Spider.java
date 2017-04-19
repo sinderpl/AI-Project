@@ -45,7 +45,7 @@ public class Spider extends Node{
 	//Roam around the map
 	public void roam(){
 		synchronized(lock){
-			System.out.println("moving");
+
 			// Figure out all the nodes around
 			Node[] surroundingNodes = adjacentNodes(maze);
 			//List of empty surrounding nodes
