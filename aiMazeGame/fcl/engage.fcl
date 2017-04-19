@@ -11,7 +11,7 @@ FUNCTION_BLOCK Engage
     END_VAR
 
     FUZZIFY weapon
-        TERM benign := (0, 1) (4, 0) ; 
+        TERM benign := (0, 1) (4, 0); 
         TERM dangerous := (1, 0) (4,1) (6,1) (9,0);
         TERM lethal := (6, 0) (9, 1);
     END_FUZZIFY
@@ -41,7 +41,33 @@ FUNCTION_BLOCK Engage
         AND : MIN;
         ACT : MIN;
         ACCU : MAX;
-        RULE 1 : IF weapon IS benign AND angerLevel IS furious AND currentLife IS low THEN lifeForce IS dead;
+        RULE 1 : IF weapon IS benign AND angerLevel IS annoyed AND currentLife IS low THEN lifeForce IS dead;
+        RULE 2 : IF weapon IS benign AND angerLevel IS mad AND currentLife IS low THEN lifeForce IS dead;
+        RULE 3 : IF weapon IS benign AND angerLevel IS furious AND currentLife IS low THEN lifeForce IS dead;
+      	RULE 4 : IF weapon IS benign AND angerLevel IS annoyed AND currentLife IS damaged THEN lifeForce IS low;
+        RULE 5 : IF weapon IS benign AND angerLevel IS mad AND currentLife IS damaged THEN lifeForce IS low;
+        RULE 6 : IF weapon IS benign AND angerLevel IS furious AND currentLife IS damaged THEN lifeForce IS dead;
+        RULE 7 : IF weapon IS benign AND angerLevel IS annoyed AND currentLife IS full THEN lifeForce IS damaged;
+        RULE 8 : IF weapon IS benign AND angerLevel IS mad AND currentLife IS full THEN lifeForce IS damaged;
+        RULE 9 : IF weapon IS benign AND angerLevel IS furious AND currentLife IS full THEN lifeForce IS low;
+        RULE 10 : IF weapon IS dangerous AND angerLevel IS annoyed AND currentLife IS low THEN lifeForce IS low;
+        RULE 11 : IF weapon IS dangerous AND angerLevel IS mad AND currentLife IS low THEN lifeForce IS dead;
+        RULE 12 : IF weapon IS dangerous AND angerLevel IS furious AND currentLife IS low THEN lifeForce IS dead;
+      	RULE 13 : IF weapon IS dangerous AND angerLevel IS annoyed AND currentLife IS damaged THEN lifeForce IS low;
+        RULE 14 : IF weapon IS dangerous AND angerLevel IS mad AND currentLife IS damaged THEN lifeForce IS low;
+        RULE 15 : IF weapon IS dangerous AND angerLevel IS furious AND currentLife IS damaged THEN lifeForce IS low;
+        RULE 16 : IF weapon IS dangerous AND angerLevel IS annoyed AND currentLife IS full THEN lifeForce IS damaged;
+        RULE 17 : IF weapon IS dangerous AND angerLevel IS mad AND currentLife IS full THEN lifeForce IS damaged;
+        RULE 18 : IF weapon IS dangerous AND angerLevel IS furious AND currentLife IS full THEN lifeForce IS low;
+        RULE 19 : IF weapon IS lethal AND angerLevel IS annoyed AND currentLife IS low THEN lifeForce IS low;
+        RULE 20 : IF weapon IS lethal AND angerLevel IS mad AND currentLife IS low THEN lifeForce IS low;
+        RULE 21 : IF weapon IS lethal AND angerLevel IS furious AND currentLife IS low THEN lifeForce IS dead;
+      	RULE 22 : IF weapon IS lethal AND angerLevel IS annoyed AND currentLife IS damaged THEN lifeForce IS damaged;
+        RULE 23 : IF weapon IS lethal AND angerLevel IS mad AND currentLife IS damaged THEN lifeForce IS damaged;
+        RULE 24 : IF weapon IS lethal AND angerLevel IS furious AND currentLife IS damaged THEN lifeForce IS low;
+        RULE 25 : IF weapon IS lethal AND angerLevel IS annoyed AND currentLife IS full THEN lifeForce IS full;
+        RULE 26 : IF weapon IS lethal AND angerLevel IS mad AND currentLife IS full THEN lifeForce IS full;
+        RULE 27 : IF weapon IS lethal AND angerLevel IS furious AND currentLife IS full THEN lifeForce IS damaged;
     END_RULEBLOCK
 
 END_FUNCTION_BLOCK

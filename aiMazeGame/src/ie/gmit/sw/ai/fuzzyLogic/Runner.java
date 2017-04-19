@@ -12,9 +12,9 @@ public class Runner {
         FunctionBlock fb = fis.getFunctionBlock("Engage");
         JFuzzyChart.get().chart(fb);
         
-        fis.setVariable("weapon", 2);
-        fis.setVariable("angerLevel", 9);
-        fis.setVariable("angerLevel", 4);
+        fis.setVariable("weapon", 9);
+        fis.setVariable("angerLevel", 6);
+        fis.setVariable("currentLife", 5);
         fis.evaluate();
         
         Variable lifeForce = fb.getVariable("lifeForce");
