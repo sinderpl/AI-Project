@@ -2,6 +2,7 @@ package ie.gmit.sw.ai.maze;
 
 import ie.gmit.sw.ai.maze.MazeGenerators.MazeGenerator;
 import ie.gmit.sw.ai.maze.Nodes.Node;
+import ie.gmit.sw.ai.maze.Nodes.Player;
 import ie.gmit.sw.ai.maze.Nodes.Spider;
 
 public class Maze {
@@ -9,6 +10,8 @@ public class Maze {
 	private MazeGenerator generator;
 	private Object lock = new Object();
 	private ThreadPool pool;
+	private Player player;
+	
 	public Maze(MazeGenerator generator, int dimension){
 		this.generator = generator;
 		maze = new Node[dimension][dimension];
@@ -85,6 +88,14 @@ public class Maze {
 	
 	public void set(int row, int col, Node n){
 		this.maze[row][col] = n;
+	}
+	
+	public void setPlayer(int row, int col, Player n){
+		this.maze[row][col] = n;
+		this.player = n;
+	}
+	public Player getPlayer(){
+		return player;
 	}
 	
 	public int size(){

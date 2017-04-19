@@ -8,6 +8,7 @@ import ie.gmit.sw.ai.maze.Maze;
 import ie.gmit.sw.ai.maze.MazeGenerators.MazeGenerator;
 import ie.gmit.sw.ai.maze.MazeGenerators.MazeGeneratorFactory;
 import ie.gmit.sw.ai.maze.Nodes.Node;
+import ie.gmit.sw.ai.maze.Nodes.Player;
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 100;
 	private static final int IMAGE_COUNT = 14;
@@ -82,7 +83,7 @@ public class GameRunner implements KeyListener{
 	private void placePlayer(){   	
     	currentRow = (int) (MAZE_DIMENSION * Math.random());
     	currentCol = (int) (MAZE_DIMENSION * Math.random());
-    	model.set(currentRow, currentCol, new Node(currentRow, currentCol, 5)); //A Spartan warrior is at index 5
+    	model.set(currentRow, currentCol, new Player(currentRow, currentCol, 5)); //A Spartan warrior is at index 5
     	updateView(); 		
 	}
 	
@@ -115,7 +116,7 @@ public class GameRunner implements KeyListener{
 	private boolean isValidMove(int row, int col){
 		if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1){
 			model.set(currentRow, currentCol, new Node(currentRow, currentCol, -1));
-			model.set(row, col, new Node(row, col, 5));
+			model.setPlayer(row, col, new Player(row, col, 5));
 			return true;
 		}else{
 			return false; //Can't move
