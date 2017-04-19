@@ -18,7 +18,7 @@ public class Spider extends Node{
 	Node[][] maze;
 	private ExecutorService executor = Executors.newFixedThreadPool(1);
 	
-	private Player player;
+	private Player player = null;
 	
 	public Spider(int row, int col, int nodeType, Object lock, ThreadPool pool, Node[][] maze, Player player) {
 		
@@ -34,14 +34,14 @@ public class Spider extends Node{
 		this.player = player;
 		
 		//Execute the spider movement in a thread
-		executor.submit(() ->{
+		pool.getPool().submit(() ->{
 			while(true){
 			try{
 				//Time between movements
 				Thread.sleep(2000);
 				// Move around the maze
 				//roam();
-				traverse();
+				traverse(getRow(), getCol());
 				
 			}catch (Exception e) {
 				System.out.println(e);
@@ -91,11 +91,10 @@ public class Spider extends Node{
 		
 	}
 	
-	public void traverse(){
+	public void traverse(int row, int col){
 		synchronized(lock){
 		Traversator t = new AStarTraversator(player);
-        
-        t.traverse(maze, maze[super.getRow()][super.getCol()]);
+		t.traverse(maze, maze[row][col]);
 		}
 	}
 	
