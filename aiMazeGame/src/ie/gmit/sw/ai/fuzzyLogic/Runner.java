@@ -6,15 +6,15 @@ import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 public class Runner {
-	public static void main(String[] args) throws Exception {
+	public double getLifeForce(double weapon, double angerLevel, double currentLife){
         String fileName = "fcl/engage.fcl";
         FIS fis = FIS.load(fileName,true);
         FunctionBlock fb = fis.getFunctionBlock("Engage");
         JFuzzyChart.get().chart(fb);
         
-        fis.setVariable("weapon", 9);
-        fis.setVariable("angerLevel", 6);
-        fis.setVariable("currentLife", 5);
+        fis.setVariable("weapon", weapon);
+        fis.setVariable("angerLevel", angerLevel);
+        fis.setVariable("currentLife", currentLife);
         fis.evaluate();
         
         Variable lifeForce = fb.getVariable("lifeForce");
@@ -23,6 +23,7 @@ public class Runner {
         // Print ruleSet
         System.out.println("LifeForce: " + fb.getVariable("lifeForce").getValue() +""); //Output end result
         JFuzzyChart.get().chart(lifeForce.getDefuzzifier(), "Result Life Force (%)", true);
+		return fb.getVariable("lifeForce").getValue();
 	}
 
 }
