@@ -1,4 +1,4 @@
-package ie.gmit.sw.ai.maze;
+package ie.gmit.sw.ai.maze.Nodes;
 
 import java.awt.Color;
 public class Node {

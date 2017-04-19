@@ -11,8 +11,9 @@ public class ThreadPool{
 		return pool;
 	}
 	
+	/**
 	public void createPool(int numberOfThreads){
 		pool = Executors.newFixedThreadPool(numberOfThreads);
-	}
+	}**/
 
 }

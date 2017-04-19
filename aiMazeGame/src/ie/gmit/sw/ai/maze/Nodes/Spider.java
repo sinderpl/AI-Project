@@ -1,7 +1,9 @@
-package ie.gmit.sw.ai.maze;
+package ie.gmit.sw.ai.maze.Nodes;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.*;
+
+import ie.gmit.sw.ai.maze.ThreadPool;
 
 //A spider class, it extends Node so that it can be applied to the Maze array.
 public class Spider extends Node{
@@ -12,7 +14,7 @@ public class Spider extends Node{
 	Object lock;
 	//Maze reference variable
 	Node[][] maze;
-	
+	private ExecutorService executor = Executors.newFixedThreadPool(1);
 	public Spider(int row, int col, int nodeType, Object lock, ThreadPool pool, Node[][] maze) {
 		
 		//Set the location variables in the parent
@@ -25,16 +27,15 @@ public class Spider extends Node{
 		this.maze = maze;
 		
 		//Execute the spider movement in a thread
-		this.pool.submit(() ->{
+		executor.submit(() ->{
 			while(true){
 			try{
 				//Time between movements
-				Thread.sleep(4000);
+				Thread.sleep(1000);
 				// Move around the maze
 				roam();
 				
 			}catch (Exception e) {
-				System.out.println("basdus");
 				System.out.println(e);
 			}
 			}
@@ -71,13 +72,6 @@ public class Spider extends Node{
 				 int position = random.nextInt(emptySurroundingNodes.size());
 				 newPositionX = emptySurroundingNodes.get(position).getRow();
 				 newPositionY = emptySurroundingNodes.get(position).getCol();
-				 
-				 //Move to the specified positons
-				 System.out.println("old:");
-				 System.out.println("posx: " + previousPositonX + " posy: "+ previousPositionY);
-				 System.out.println("new:");
-				 System.out.println("posx: "+ newPositionX + " posy: "+newPositionY);
-				 
 				 
 				 setRow(newPositionX);
 				 setCol(newPositionY);

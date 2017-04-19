@@ -1,4 +1,6 @@
-package ie.gmit.sw.ai.maze;
+package ie.gmit.sw.ai.maze.MazeGenerators;
+
+import ie.gmit.sw.ai.maze.Nodes.Node;
 
 public interface MazeGenerator {
 	public enum GeneratorAlgorithm {BinaryTree, HuntAndKill, RandomDepthFirst, RecursiveBacktracker, RecursiveDivision, RandomizedPrim, RandomizedKruskal};

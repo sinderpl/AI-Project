@@ -1,4 +1,7 @@
-package ie.gmit.sw.ai.maze;
+package ie.gmit.sw.ai.maze.MazeGenerators;
+
+import ie.gmit.sw.ai.maze.Nodes.Node;
+import ie.gmit.sw.ai.maze.Nodes.Node.Direction;
 
 public class BinaryTreeMazeGenerator extends AbstractMazeGenerator {
 	public BinaryTreeMazeGenerator(int rows, int cols) {

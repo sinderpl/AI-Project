@@ -1,6 +1,6 @@
-package ie.gmit.sw.ai.maze;
+package ie.gmit.sw.ai.maze.MazeGenerators;
 
-import ie.gmit.sw.ai.maze.MazeGenerator.*;
+import ie.gmit.sw.ai.maze.MazeGenerators.MazeGenerator.*;
 public class MazeGeneratorFactory {
 	private static MazeGeneratorFactory mgf = new MazeGeneratorFactory();
 	

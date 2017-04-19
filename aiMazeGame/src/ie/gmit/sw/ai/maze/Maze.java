@@ -1,10 +1,14 @@
 package ie.gmit.sw.ai.maze;
 
+import ie.gmit.sw.ai.maze.MazeGenerators.MazeGenerator;
+import ie.gmit.sw.ai.maze.Nodes.Node;
+import ie.gmit.sw.ai.maze.Nodes.Spider;
+
 public class Maze {
 	private Node[][] maze;
 	private MazeGenerator generator;
 	private Object lock = new Object();
-	private ThreadPool pool = new ThreadPool(50);
+	private ThreadPool pool;
 	public Maze(MazeGenerator generator, int dimension){
 		this.generator = generator;
 		maze = new Node[dimension][dimension];
@@ -17,18 +21,19 @@ public class Maze {
 		addFeature(2, 0, featureNumber); //2 is help, 0 is a hedge
 		addFeature(3, 0, featureNumber); //3 is a bomb, 0 is a hedge
 		addFeature(4, 0, featureNumber); //4 is a hydrogen bomb, 0 is a hedge
-		//0 is empty
+		//0 is a hedge
 		
-		//featureNumber = (int)((dimension * dimension) * 0.005);
-		featureNumber = 1;
+		featureNumber = (int)((dimension * dimension) * 0.0005);
+		pool = new ThreadPool(featureNumber);
+		System.out.println(featureNumber * 8);
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
 		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
 		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
-		addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
-		addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
-		addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
-		addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
-		addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
+		//addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
+		//addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
+		//addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
+		//addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
+		//addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
 	}
 	
 	private void init(){

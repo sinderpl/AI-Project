@@ -1,8 +1,9 @@
-package ie.gmit.sw.ai.maze;
-
-import ie.gmit.sw.ai.maze.Node.Direction;
+package ie.gmit.sw.ai.maze.MazeGenerators;
 
 import java.util.*;
+
+import ie.gmit.sw.ai.maze.Nodes.Node;
+import ie.gmit.sw.ai.maze.Nodes.Node.Direction;
 public class RandomDepthFirstMazeGenerator extends AbstractMazeGenerator {
 	public RandomDepthFirstMazeGenerator(int rows, int cols) {
 		super(rows, cols);

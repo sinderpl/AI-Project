@@ -1,7 +1,9 @@
-package ie.gmit.sw.ai.maze;
+package ie.gmit.sw.ai.maze.MazeGenerators;
 
-import ie.gmit.sw.ai.maze.Node.*;
 import java.util.*;
+
+import ie.gmit.sw.ai.maze.Nodes.Node;
+import ie.gmit.sw.ai.maze.Nodes.Node.*;
 public class RecursiveBacktrackerMazeGenerator extends AbstractMazeGenerator {
 	public RecursiveBacktrackerMazeGenerator(int rows, int cols) {
 		super(rows, cols);

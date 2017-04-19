@@ -1,9 +1,10 @@
-package ie.gmit.sw.ai.maze;
-
-import ie.gmit.sw.ai.maze.Node.Direction;
+package ie.gmit.sw.ai.maze.MazeGenerators;
 
 import java.awt.Color;
 import java.util.*;
+
+import ie.gmit.sw.ai.maze.Nodes.Node;
+import ie.gmit.sw.ai.maze.Nodes.Node.Direction;
 public abstract class AbstractMazeGenerator implements MazeGenerator {
 	private Node[][] maze;
 	private Node goal;

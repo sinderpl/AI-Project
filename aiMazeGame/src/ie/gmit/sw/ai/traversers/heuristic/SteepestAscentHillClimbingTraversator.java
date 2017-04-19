@@ -2,6 +2,7 @@ package ie.gmit.sw.ai.traversers.heuristic;
 
 import java.util.*;
 import ie.gmit.sw.ai.maze.*;
+import ie.gmit.sw.ai.maze.Nodes.Node;
 import ie.gmit.sw.ai.traversers.Traversator;
 import ie.gmit.sw.ai.traversers.TraversatorStats;
 public class SteepestAscentHillClimbingTraversator implements Traversator{

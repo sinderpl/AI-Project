@@ -79,7 +79,7 @@ public class GameView extends JPanel implements ActionListener{
         		}
         		
         		imageIndex = (int) ch;
-        		imageIndex = ch;
+        		//imageIndex = ch;
         		if (imageIndex < 0){
         			g2.setColor(Color.LIGHT_GRAY);//Empty cell
         			g2.fillRect(x1, y1, size, size);   			

@@ -5,9 +5,9 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import ie.gmit.sw.ai.maze.Maze;
-import ie.gmit.sw.ai.maze.MazeGenerator;
-import ie.gmit.sw.ai.maze.MazeGeneratorFactory;
-import ie.gmit.sw.ai.maze.Node;
+import ie.gmit.sw.ai.maze.MazeGenerators.MazeGenerator;
+import ie.gmit.sw.ai.maze.MazeGenerators.MazeGeneratorFactory;
+import ie.gmit.sw.ai.maze.Nodes.Node;
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 100;
 	private static final int IMAGE_COUNT = 14;

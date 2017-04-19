@@ -1,8 +1,9 @@
-package ie.gmit.sw.ai.maze;
-
-import ie.gmit.sw.ai.maze.Node.Direction;
+package ie.gmit.sw.ai.maze.MazeGenerators;
 
 import java.util.Random;
+
+import ie.gmit.sw.ai.maze.Nodes.Node;
+import ie.gmit.sw.ai.maze.Nodes.Node.Direction;
 
 public class HuntAndKillMazeGenerator extends AbstractMazeGenerator {
 	public HuntAndKillMazeGenerator(int rows, int cols) {

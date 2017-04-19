@@ -2,6 +2,7 @@ package ie.gmit.sw.ai.traversers;
 
 import java.awt.Color;
 import ie.gmit.sw.ai.maze.*;
+import ie.gmit.sw.ai.maze.Nodes.Node;
 
 public class TraversatorStats {
 	public static void printStats(Node node, long time, int visitCount){
