@@ -19,6 +19,8 @@ public class Maze {
 		init();
 		buildMaze();
 		
+		
+		
 		int featureNumber = (int)((dimension * dimension) * 0.005);
 		addFeature(1, 0, featureNumber); //1 is a sword, 0 is a hedge
 		addFeature(2, 0, featureNumber); //2 is help, 0 is a hedge
@@ -26,6 +28,8 @@ public class Maze {
 		addFeature(4, 0, featureNumber); //4 is a hydrogen bomb, 0 is a hedge
 		//0 is a hedge
 		
+		//Place the player on the field before the spiders for reference.
+		placePlayer(5, -1);
 		featureNumber = (int)((dimension * dimension) * 0.0005);
 		pool = new ThreadPool(featureNumber);
 		System.out.println(featureNumber * 8);
@@ -55,12 +59,26 @@ public class Maze {
 			
 			if (maze[row][col].getNodeType() == replace){
 				if(feature > 5){
-					maze[row][col] = new Spider(row, col, feature, lock,pool, maze);
+					maze[row][col] = new Spider(row, col, feature, lock,pool, maze, player);
 				}
 				else{
 					maze[row][col].setNodeType(feature);
 				}
 				counter++;
+			}
+		}
+	}
+	
+	public void placePlayer(int feature, int replace){
+		boolean placed = false;
+		while(!placed){
+			int row = (int) (maze.length * Math.random());
+			int col = (int) (maze[0].length * Math.random());
+			
+			if (maze[row][col].getNodeType() == replace){
+				player = new Player(row,col,5);
+				maze[row][col] = player;
+				placed = true;
 			}
 		}
 	}

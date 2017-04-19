@@ -62,7 +62,8 @@ public class GameRunner implements KeyListener{
     	Sprite[] sprites = getSprites();
     	view.setSprites(sprites);
     	
-    	placePlayer();
+    	updateView();
+    	//placePlayer();
     	
     	Dimension d = new Dimension(GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
     	view.setPreferredSize(d);
@@ -80,14 +81,10 @@ public class GameRunner implements KeyListener{
         f.setVisible(true);
 	}
 	
-	private void placePlayer(){   	
-    	currentRow = (int) (MAZE_DIMENSION * Math.random());
-    	currentCol = (int) (MAZE_DIMENSION * Math.random());
-    	model.set(currentRow, currentCol, new Player(currentRow, currentCol, 5)); //A Spartan warrior is at index 5
-    	updateView(); 		
-	}
 	
 	private void updateView(){
+		currentRow = model.getPlayer().getRow();
+    	currentCol = model.getPlayer().getCol();
 		view.setCurrentRow(currentRow);
 		view.setCurrentCol(currentCol);
 	}
