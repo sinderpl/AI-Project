@@ -1,0 +1,47 @@
+FUNCTION_BLOCK Engage
+
+    VAR_INPUT
+        weapon : REAL;
+        angerLevel : REAL;
+        currentLife : REAL;
+    END_VAR
+
+    VAR_OUTPUT
+        lifeForce : REAL;
+    END_VAR
+
+    FUZZIFY weapon
+        TERM benign := (0, 1) (4, 0) ; 
+        TERM dangerous := (1, 0) (4,1) (6,1) (9,0);
+        TERM lethal := (6, 0) (9, 1);
+    END_FUZZIFY
+
+    FUZZIFY angerLevel
+    	TERM annoyed := sigm -5 3;
+        TERM mad := gbell 2 4 5;
+        TERM furious := sigm 5 7;
+    END_FUZZIFY
+    
+    FUZZIFY currentLife
+    	TERM low := trape 2.0 14.5 22.5 35.0;
+        TERM damaged := trape 20.0 40.0 60.0 90.0;
+        TERM full := (80, 0)  (100, 1);
+    END_FUZZIFY
+
+    DEFUZZIFY lifeForce
+    	TERM dead := (0, 1)  (3, 0);
+        TERM low := trape 2.0 14.5 22.5 35.0;
+        TERM damaged := trape 20.0 40.0 60.0 90.0;
+        TERM full := (80, 0)  (100, 1);
+        METHOD : COG;
+        DEFAULT := 0;
+    END_DEFUZZIFY
+
+    RULEBLOCK No1
+        AND : MIN;
+        ACT : MIN;
+        ACCU : MAX;
+        RULE 1 : IF weapon IS benign AND angerLevel IS furious AND currentLife IS low THEN lifeForce IS dead;
+    END_RULEBLOCK
+
+END_FUNCTION_BLOCK
