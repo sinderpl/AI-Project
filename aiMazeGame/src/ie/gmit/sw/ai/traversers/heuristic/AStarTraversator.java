@@ -8,7 +8,7 @@ import ie.gmit.sw.ai.traversers.TraversatorStats;
 import java.util.*;
 public class AStarTraversator implements Traversator{
 	private Node goal; 
-	 private LinkedList<Node> path = null;
+	private LinkedList<Node> path = null;
 	
 	public AStarTraversator(Node goal){
 		this.goal = goal;

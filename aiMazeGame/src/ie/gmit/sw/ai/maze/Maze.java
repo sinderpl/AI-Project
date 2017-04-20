@@ -19,8 +19,6 @@ public class Maze {
 		init();
 		buildMaze();
 		
-		
-		
 		int featureNumber = (int)((dimension * dimension) * 0.005);
 		addFeature(1, 0, featureNumber); //1 is a sword, 0 is a hedge
 		addFeature(2, 0, featureNumber); //2 is help, 0 is a hedge
@@ -33,13 +31,13 @@ public class Maze {
 		featureNumber = (int)((dimension * dimension) * 0.0005);
 		pool = new ThreadPool(featureNumber);
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
-		//addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
-		//addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
-		//addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
-		//addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
-		//addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
-		//addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
-		//addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
+		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
+		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
+		addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
+		addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
+		addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
+		addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
+		addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
 	}
 	
 	
@@ -62,7 +60,7 @@ public class Maze {
 			
 			if (maze[row][col].getNodeType() == replace){
 				if(feature > 5){
-					maze[row][col] = new Spider(row, col, feature, lock,pool, maze, player);
+					maze[row][col] = new Spider(row, col, feature, lock,pool, maze, getPlayer());
 				}
 				else{
 					maze[row][col].setNodeType(feature);
@@ -108,6 +106,8 @@ public class Maze {
 	}
 	
 	public void set(int row, int col, Node n){
+		n.setRow(row);
+		n.setCol(col);
 		this.maze[row][col] = n;
 	}
 	
@@ -117,7 +117,7 @@ public class Maze {
 		this.player.setCol(col);
 	}
 	public Player getPlayer(){
-		return player;
+		return this.player;
 	}
 	
 	public int size(){
