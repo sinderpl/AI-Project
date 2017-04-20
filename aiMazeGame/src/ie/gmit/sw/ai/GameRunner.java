@@ -19,6 +19,7 @@ public class GameRunner implements KeyListener{
 	
 	//GameRunner takes in String mazeAlgo as parameter for Maze Generation
 	public GameRunner(String mazeAlgo) throws Exception{
+		
 		MazeGeneratorFactory factory = MazeGeneratorFactory.getInstance();
 		System.out.println(mazeAlgo);
 		switch (mazeAlgo) {
@@ -56,7 +57,7 @@ public class GameRunner implements KeyListener{
 		
 		model = new Maze(generator, MAZE_DIMENSION);
     	view = new GameView(model);
-    	
+
     	Sprite[] sprites = getSprites();
     	view.setSprites(sprites);
     	
@@ -77,14 +78,16 @@ public class GameRunner implements KeyListener{
         f.setLocation(100,100);
         f.pack();
         f.setVisible(true);
+        
 	}
 	
-	
+
 	private void updateView(){
 		currentRow = model.getPlayer().getRow();
     	currentCol = model.getPlayer().getCol();
 		view.setCurrentRow(currentRow);
 		view.setCurrentCol(currentCol);
+		System.out.println(model.getDoor());
 	}
 
     public void keyPressed(KeyEvent e) {
@@ -113,9 +116,32 @@ public class GameRunner implements KeyListener{
 			model.set(currentRow, currentCol, model.get(row, col));
 			model.set(row, col, model.getPlayer());
 			return true;
+		}else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 1){
+			model.get(row, col).setNodeType(0);
+			//Weaponstrength+=3;
+			return false;
+		}
+		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 2){
+			model.get(row, col).setNodeType(0);
+			//Weaponstrength+=3;
+			return false;
+		}
+		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 3){
+			model.get(row, col).setNodeType(0);
+			//Weaponstrength+=3;
+			return false;
+		}
+		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 4){
+			model.get(row, col).setNodeType(0);
+			//Weaponstrength+=3;
+			return false;
+		}
+		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 14){
+			System.exit(0);
 		}else{
 			return false; //Can't move
 		}
+		return false;
 	}
 	
 	private Sprite[] getSprites() throws Exception{

@@ -96,7 +96,7 @@ public class Maze {
 			int col = (int) (maze[0].length * Math.random());
 			
 			if (maze[row][col].getNodeType() == replace){
-				player = new Player(row,col,feature, maze, door);
+				player = new Player(row,col,feature);
 				maze[row][col] = player;
 				placed = true;
 			}
@@ -137,6 +137,10 @@ public class Maze {
 	}
 	public Player getPlayer(){
 		return this.player;
+	}
+	
+	public Door getDoor(){
+		return this.door;
 	}
 	
 	public int size(){
