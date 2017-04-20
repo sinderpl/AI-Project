@@ -15,18 +15,20 @@ public class Player extends Node {
 		this.door = door;
 		this.maze = maze;
 
+		/**
 		while(true){
 			try{
 				traverse();
 			}catch (Exception e) {
 				
 			}
-		}
+		}**/
 	}
 
+	/**
 	private void traverse() {
 		Traversator t = new AStarTraversator(door);
 		t.traverse(maze, maze[getRow()][getCol()]);
 	}
-
+**/
 }

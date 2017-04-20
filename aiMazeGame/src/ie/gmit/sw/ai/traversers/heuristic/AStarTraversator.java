@@ -64,7 +64,7 @@ public class AStarTraversator implements Traversator{
 			
 		}
 		
-		path.addFirst(closed.get(0));
+		path.addFirst(closed.get(1));
 	}
 
 	@Override
