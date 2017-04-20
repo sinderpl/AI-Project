@@ -1,6 +1,7 @@
 package ie.gmit.sw.ai.maze;
 
 import ie.gmit.sw.ai.maze.MazeGenerators.MazeGenerator;
+import ie.gmit.sw.ai.maze.Nodes.Door;
 import ie.gmit.sw.ai.maze.Nodes.Node;
 import ie.gmit.sw.ai.maze.Nodes.Player;
 import ie.gmit.sw.ai.maze.Nodes.Spider;
@@ -11,6 +12,7 @@ public class Maze {
 	private Object lock = new Object();
 	private ThreadPool pool;
 	private Player player;
+	private Door door;
 	
 	public Maze(MazeGenerator generator, int dimension){
 		this.generator = generator;
@@ -28,7 +30,7 @@ public class Maze {
 		
 		//Place the player on the field before the spiders for reference.
 		placePlayer(5, -1);
-		featureNumber = 3;
+		featureNumber = 1;
 		pool = new ThreadPool(featureNumber);
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
 //		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
@@ -38,8 +40,26 @@ public class Maze {
 //		addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
 //		addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
 //		addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
+		
+		//Add Door
+		placeDoor(14, -1);
 	}
 	
+	private void placeDoor(int feature, int replace) {
+		boolean placedDoor = false;
+		while(!placedDoor){
+			int row = (int) (maze.length * Math.random());
+			int col = (int) (maze[0].length * Math.random());
+			
+			if (maze[row][col].getNodeType() == replace){
+				door = new Door(row,col,feature);
+				maze[row][col] = door;
+				door.setGoalNode(true);
+				placedDoor = true;
+			}
+		}
+	}
+
 	private void init(){
 		for (int row = 0; row < maze.length; row++){
 			for (int col = 0; col < maze[row].length; col++){
@@ -73,7 +93,7 @@ public class Maze {
 			int col = (int) (maze[0].length * Math.random());
 			
 			if (maze[row][col].getNodeType() == replace){
-				player = new Player(row,col,5);
+				player = new Player(row,col,feature);
 				maze[row][col] = player;
 				placed = true;
 			}

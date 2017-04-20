@@ -36,11 +36,11 @@ public class Spider extends Node{
 		this.player = player;
 
 		//Execute the spider movement in a thread
-		this.pool.submit(() ->{
+		executor.submit(() ->{
 			while(true){
 				try{
 					//Time between movements
-					Thread.sleep(300);
+					Thread.sleep(2000);
 					//Find the path to take
 					traverse(getRow(), getCol());
 					// Move around the maze if within range
@@ -136,7 +136,7 @@ public class Spider extends Node{
 				setCol(newPositionY);
 
 				maze[newPositionX][newPositionY] = (Spider)this;
-				maze[previousPositonX][previousPositionY] = nextPosition;
+				maze[previousPositonX][previousPositionY] = emptySurroundingNodes.get(position);;
 			}
 		
 	}
@@ -144,7 +144,7 @@ public class Spider extends Node{
 			Traversator t = new AStarTraversator(player);
 			t.traverse(maze, maze[row][col]);
 			nextPosition = t.getNextNode();
-			System.out.println(nextPosition);
+
 			if(nextPosition != null){
 	            canMove = true;
 	        } else {

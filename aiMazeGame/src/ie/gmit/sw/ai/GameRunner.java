@@ -7,11 +7,9 @@ import javax.swing.*;
 import ie.gmit.sw.ai.maze.Maze;
 import ie.gmit.sw.ai.maze.MazeGenerators.MazeGenerator;
 import ie.gmit.sw.ai.maze.MazeGenerators.MazeGeneratorFactory;
-import ie.gmit.sw.ai.maze.Nodes.Node;
-import ie.gmit.sw.ai.maze.Nodes.Player;
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 100;
-	private static final int IMAGE_COUNT = 14;
+	private static final int IMAGE_COUNT = 15;
 	private GameView view;
 	private Maze model;
 	private int currentRow;
@@ -139,6 +137,7 @@ public class GameRunner implements KeyListener{
 		sprites[11] = new Sprite("Orange Spider", "resources/orange_spider_1.png", "resources/orange_spider_2.png");
 		sprites[12] = new Sprite("Red Spider", "resources/red_spider_1.png", "resources/red_spider_2.png");
 		sprites[13] = new Sprite("Yellow Spider", "resources/yellow_spider_1.png", "resources/yellow_spider_2.png");
+		sprites[14] = new Sprite("Door", "resources/door.png");
 		return sprites;
 	}
 }

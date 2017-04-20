@@ -69,7 +69,6 @@ public class AStarTraversator implements Traversator{
 
 	@Override
 	public Node getNextNode() {
-		System.out.println(path);
 		return path.getFirst();
 	}
 }
