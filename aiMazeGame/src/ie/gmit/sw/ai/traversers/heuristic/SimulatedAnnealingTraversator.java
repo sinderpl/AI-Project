@@ -1,5 +1,7 @@
 package ie.gmit.sw.ai.traversers.heuristic;
 
+import java.util.LinkedList;
+
 import ie.gmit.sw.ai.maze.*;
 import ie.gmit.sw.ai.maze.Nodes.Node;
 import ie.gmit.sw.ai.traversers.Traversator;
@@ -82,7 +84,7 @@ public class SimulatedAnnealingTraversator implements Traversator{
 	}
 
 	@Override
-	public Node getNextNode() {
+	public LinkedList<Node> getNextNode() {
 		// TODO Auto-generated method stub
 		return null;
 	}

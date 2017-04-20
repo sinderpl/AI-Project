@@ -52,7 +52,7 @@ public class BestFirstTraversator implements Traversator{
 	}
 
 	@Override
-	public Node getNextNode() {
+	public LinkedList<Node> getNextNode() {
 		// TODO Auto-generated method stub
 		return null;
 	}

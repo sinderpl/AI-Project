@@ -1,6 +1,7 @@
 package ie.gmit.sw.ai.traversers.uninformed;
 
 import java.awt.Color;
+import java.util.LinkedList;
 
 import ie.gmit.sw.ai.maze.*;
 import ie.gmit.sw.ai.maze.Nodes.Node;
@@ -69,7 +70,7 @@ public class IDDFSTraversator implements Traversator{
 	}
 
 	@Override
-	public Node getNextNode() {
+	public LinkedList<Node> getNextNode() {
 		// TODO Auto-generated method stub
 		return null;
 	}
