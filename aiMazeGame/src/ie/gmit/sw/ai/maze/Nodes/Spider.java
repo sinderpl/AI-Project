@@ -43,6 +43,8 @@ public class Spider extends Node{
 					Thread.sleep(2000);
 					//Find the path to take
 					traverse(getRow(), getCol());
+
+					
 					// Move around the maze if within range
 					if(canMove && getHeuristic(player) < 9){
 						System.out.println("Searching");

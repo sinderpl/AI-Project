@@ -28,6 +28,9 @@ public class Maze {
 		addFeature(4, 0, featureNumber); //4 is a hydrogen bomb, 0 is a hedge
 		//0 is a hedge
 		
+		
+		//Add Door
+		placeDoor(14, -1);
 		//Place the player on the field before the spiders for reference.
 		placePlayer(5, -1);
 		featureNumber = 1;
@@ -41,8 +44,8 @@ public class Maze {
 //		addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
 //		addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
 		
-		//Add Door
-		placeDoor(14, -1);
+	
+		
 	}
 	
 	private void placeDoor(int feature, int replace) {
@@ -93,7 +96,7 @@ public class Maze {
 			int col = (int) (maze[0].length * Math.random());
 			
 			if (maze[row][col].getNodeType() == replace){
-				player = new Player(row,col,feature);
+				player = new Player(row,col,feature, maze, door);
 				maze[row][col] = player;
 				placed = true;
 			}
