@@ -7,7 +7,7 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 public class Runner {
 	public double getLifeForce(double weapon, double angerLevel, double currentLife){
-        String fileName = "fcl/engage.fcl";
+        String fileName = "src/fcl/engage.fcl";
         FIS fis = FIS.load(fileName,true);
         FunctionBlock fb = fis.getFunctionBlock("Engage");
         JFuzzyChart.get().chart(fb);
