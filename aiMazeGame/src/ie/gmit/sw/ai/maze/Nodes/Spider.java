@@ -40,11 +40,11 @@ public class Spider extends Node{
 			while(true){
 				try{
 					//Time between movements
-					Thread.sleep(3000);
+					Thread.sleep(30);
 					//Find the path to take
 					traverse(getRow(), getCol());
 					// Move around the maze
-					if(canMove ){       
+					if(canMove){       
 						roam();  
 					} else {               
 						randomMove();       
@@ -70,8 +70,7 @@ public class Spider extends Node{
 				// Check if they are empty
 				for(Node n : surroundingNodes){
 					if(nextPosition.equals(n))
-					{
-						System.out.println(true);		
+					{		
 						//New position of the object
 						int newPositionX, newPositionY;
 						//Previous position of the object
@@ -144,6 +143,7 @@ public class Spider extends Node{
 			Traversator t = new AStarTraversator(player);
 			t.traverse(maze, maze[row][col]);
 			nextPosition = t.getNextNode();
+			System.out.println(player);
 			
 			if(nextPosition != null){
 	            canMove = true;
