@@ -8,7 +8,7 @@ import ie.gmit.sw.ai.maze.Maze;
 import ie.gmit.sw.ai.maze.MazeGenerators.MazeGenerator;
 import ie.gmit.sw.ai.maze.MazeGenerators.MazeGeneratorFactory;
 public class GameRunner implements KeyListener{
-	private static final int MAZE_DIMENSION = 100;
+	private static final int MAZE_DIMENSION = 30;
 	private static final int IMAGE_COUNT = 15;
 	private GameView view;
 	private Maze model;
