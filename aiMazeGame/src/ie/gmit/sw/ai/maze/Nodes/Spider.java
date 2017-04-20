@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 
 import ie.gmit.sw.ai.maze.ThreadPool;
 import ie.gmit.sw.ai.traversers.Traversator;
-import ie.gmit.sw.ai.traversers.heuristic.AStarTraversator;
+import ie.gmit.sw.ai.traversers.heuristic.*;
 
 //A spider class, it extends Node so that it can be applied to the Maze array.
 public class Spider extends Node{
@@ -17,6 +17,7 @@ public class Spider extends Node{
 	//Maze reference variable
 	Node[][] maze;
 	private ExecutorService executor = Executors.newFixedThreadPool(1);
+	private Traversator t;
 	
 	private Player player;
 	
@@ -32,9 +33,10 @@ public class Spider extends Node{
 		this.maze = maze;
 		//Player variable
 		this.player = player;
+		t = new AStarTraversator(player);
 		
 		//Execute the spider movement in a thread
-		executor.submit(() ->{
+		pool.getPool().submit(() ->{
 			while(true){
 			try{
 				//Time between movements
@@ -93,9 +95,8 @@ public class Spider extends Node{
 	
 	public void traverse(){
 		synchronized(lock){
-		Traversator t = new AStarTraversator(player);
-        
-        t.traverse(maze, maze[super.getRow()][super.getCol()]);
+			t = new BestFirstTraversator(player);
+			t.traverse(maze, maze[getRow()][getCol()]);
 		}
 	}
 	

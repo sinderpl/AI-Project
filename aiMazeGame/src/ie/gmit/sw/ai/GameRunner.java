@@ -113,7 +113,7 @@ public class GameRunner implements KeyListener{
 	private boolean isValidMove(int row, int col){
 		if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1){
 			model.set(currentRow, currentCol, new Node(currentRow, currentCol, -1));
-			model.setPlayer(row, col, new Player(row, col, 5));
+			model.setPlayer(row, col);
 			return true;
 		}else{
 			return false; //Can't move

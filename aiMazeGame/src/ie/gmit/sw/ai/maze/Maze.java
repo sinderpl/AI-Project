@@ -32,16 +32,20 @@ public class Maze {
 		placePlayer(5, -1);
 		featureNumber = (int)((dimension * dimension) * 0.0005);
 		pool = new ThreadPool(featureNumber);
-		System.out.println(featureNumber * 8);
+		//System.out.println(featureNumber * 8);
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
-		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
-		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
+		//addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
+		//addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
 		//addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
 		//addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
 		//addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
 		//addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
 		//addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
 	}
+	
+	
+	
+	
 	
 	private void init(){
 		for (int row = 0; row < maze.length; row++){
@@ -108,9 +112,10 @@ public class Maze {
 		this.maze[row][col] = n;
 	}
 	
-	public void setPlayer(int row, int col, Player n){
-		this.maze[row][col] = n;
-		this.player = n;
+	public void setPlayer(int row, int col){
+		this.maze[row][col] = this.player;
+		this.player.setRow(row);
+		this.player.setCol(col);
 	}
 	public Player getPlayer(){
 		return player;
