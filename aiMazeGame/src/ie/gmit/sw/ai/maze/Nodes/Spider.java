@@ -8,7 +8,7 @@ import ie.gmit.sw.ai.traversers.Traversator;
 import ie.gmit.sw.ai.traversers.heuristic.AStarTraversator;
 
 //A spider class, it extends Node so that it can be applied to the Maze array.
-public class Spider extends Node{
+public class Spider extends Node implements Runnable{
 
 	//Pool for reference
 	private ExecutorService pool;
@@ -16,11 +16,12 @@ public class Spider extends Node{
 	Object lock;
 	//Maze reference variable
 	Node[][] maze;
-	private ExecutorService executor = Executors.newFixedThreadPool(1);
+	//private ExecutorService executor = Executors.newFixedThreadPool(1);
 
 	private Player player = null;
 	private Node nextPosition;
 	private boolean canMove = false;
+	private Node lastNode;
 
 	public Spider(int row, int col, int nodeType, Object lock, ThreadPool pool, Node[][] maze, Player player) {
 
@@ -36,21 +37,19 @@ public class Spider extends Node{
 		this.player = player;
 
 		//Execute the spider movement in a thread
-		executor.submit(() ->{
+		pool.getPool().submit(() ->{
 			while(true){
 				try{
 					//Time between movements
-					Thread.sleep(600);
+					Thread.sleep(1200);
 					//Find the path to take
 					traverse(getRow(), getCol());
 
 					
 					// Move around the maze if within range
-					if(canMove && getHeuristic(player) < 9){
-						System.out.println("Searching");
+					if(canMove && getHeuristic(player) < 6){
 						roam();     
 					} else {    
-						System.out.println("Walking");
 						randomMove();       
 					}
 
@@ -69,17 +68,25 @@ public class Spider extends Node{
 				Node[] surroundingNodes = adjacentNodes(maze);
 				//List of empty surrounding nodes
 				ArrayList<Node> emptySurroundingNodes = new ArrayList<>();
-
-
 				// Check if they are empty
 				for(Node n : surroundingNodes){
-					if(nextPosition.equals(n) && n.getNodeType() == -1)
+					if(n.getNodeType() == -1)
+					{
+						emptySurroundingNodes.add(n);
+					}
+				}
+
+				// Check if they are empty
+				for(Node n : emptySurroundingNodes){
+					if(nextPosition.equals(n) )
 					{		
+						System.out.println("equal true");
 						//New position of the object
 						int newPositionX, newPositionY;
 						//Previous position of the object
 						int previousPositonX = getRow(), previousPositionY = getCol();
-
+						
+						System.out.println();
 						newPositionX = nextPosition.getRow();
 						newPositionY = nextPosition.getCol();
 
@@ -87,7 +94,8 @@ public class Spider extends Node{
 						setCol(newPositionY);
 
 						maze[newPositionX][newPositionY] = (Spider)this;
-						maze[previousPositonX][previousPositionY] = nextPosition;
+						maze[previousPositonX][previousPositionY] = new Node(previousPositonX, previousPositionY, -1);
+						
 						nextPosition = null;
 						canMove = false;
 						return;
@@ -117,14 +125,13 @@ public class Spider extends Node{
 
 			// Check if they are empty
 			for(Node n : surroundingNodes){
-				if(n.getNodeType() == -1)
+				if(n.getNodeType() == -1 && n != lastNode)
 				{
 					emptySurroundingNodes.add(n);
 				}
 			}
 			
 			if(emptySurroundingNodes.size() > 0){
-				System.out.println(emptySurroundingNodes);
 				
 				Random random = new Random();
 				int position = random.nextInt(emptySurroundingNodes.size());
@@ -133,19 +140,14 @@ public class Spider extends Node{
 				int newPositionX, newPositionY;
 				//Previous position of the object
 				int previousPositonX = getRow(), previousPositionY = getCol();
-				System.out.println("Previous: " + previousPositonX + " " + previousPositionY);
 				newPositionX = emptySurroundingNodes.get(position).getRow();//nextPosition.getRow();
 				newPositionY = emptySurroundingNodes.get(position).getCol();//nextPosition.getCol();
-				System.out.println("New: " + newPositionX + " " + newPositionY + " TypeOfNode: " + maze[newPositionX][newPositionY].getNodeType());
 				setRow(newPositionX);
 				setCol(newPositionY);
 				
-
+				lastNode = new Node(previousPositonX, previousPositionY, -1);
 				maze[newPositionX][newPositionY] = (Spider)this;
-				System.out.println("New position in maze: " + maze[newPositionX][newPositionY]);
-				System.out.println("New position in maze: " + maze[newPositionX][newPositionY].getNodeType());
-				
-				maze[previousPositonX][previousPositionY] = new Node(previousPositonX, previousPositionY, -1);
+				maze[previousPositonX][previousPositionY] = lastNode;
 			}
 		}
 		
@@ -160,5 +162,11 @@ public class Spider extends Node{
 	        } else {
 	        	canMove = false;
 	        }
+	}
+
+	@Override
+	public void run() {
+		
+		
 	}
 }
