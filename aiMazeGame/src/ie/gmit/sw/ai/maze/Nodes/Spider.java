@@ -8,7 +8,7 @@ import ie.gmit.sw.ai.traversers.Traversator;
 import ie.gmit.sw.ai.traversers.heuristic.AStarTraversator;
 
 //A spider class, it extends Node so that it can be applied to the Maze array.
-public class Spider extends Node{
+public class Spider extends Node implements Runnable{
 
 	//Pool for reference
 	private ExecutorService pool;
@@ -16,11 +16,12 @@ public class Spider extends Node{
 	Object lock;
 	//Maze reference variable
 	Node[][] maze;
-	private ExecutorService executor = Executors.newFixedThreadPool(1);
+	//private ExecutorService executor = Executors.newFixedThreadPool(1);
 
 	private Player player = null;
 	private Node nextPosition;
 	private boolean canMove = false;
+	private Node lastNode;
 
 	public Spider(int row, int col, int nodeType, Object lock, ThreadPool pool, Node[][] maze, Player player) {
 
@@ -36,7 +37,7 @@ public class Spider extends Node{
 		this.player = player;
 
 		//Execute the spider movement in a thread
-		executor.submit(() ->{
+		pool.getPool().submit(() ->{
 			while(true){
 				try{
 					//Time between movements
@@ -124,7 +125,7 @@ public class Spider extends Node{
 
 			// Check if they are empty
 			for(Node n : surroundingNodes){
-				if(n.getNodeType() == -1)
+				if(n.getNodeType() == -1 && n != lastNode)
 				{
 					emptySurroundingNodes.add(n);
 				}
@@ -144,9 +145,9 @@ public class Spider extends Node{
 				setRow(newPositionX);
 				setCol(newPositionY);
 				
-
+				lastNode = new Node(previousPositonX, previousPositionY, -1);
 				maze[newPositionX][newPositionY] = (Spider)this;
-				maze[previousPositonX][previousPositionY] = new Node(previousPositonX, previousPositionY, -1);
+				maze[previousPositonX][previousPositionY] = lastNode;
 			}
 		}
 		
@@ -161,5 +162,11 @@ public class Spider extends Node{
 	        } else {
 	        	canMove = false;
 	        }
+	}
+
+	@Override
+	public void run() {
+		
+		
 	}
 }
