@@ -40,13 +40,13 @@ public class Spider extends Node{
 			while(true){
 				try{
 					//Time between movements
-					Thread.sleep(2000);
+					Thread.sleep(600);
 					//Find the path to take
 					traverse(getRow(), getCol());
 					// Move around the maze if within range
 					if(canMove && getHeuristic(player) < 9){
 						System.out.println("Searching");
-						roam();  
+						roam();     
 					} else {    
 						System.out.println("Walking");
 						randomMove();       
@@ -71,7 +71,7 @@ public class Spider extends Node{
 
 				// Check if they are empty
 				for(Node n : surroundingNodes){
-					if(nextPosition.equals(n))
+					if(nextPosition.equals(n) && n.getNodeType() == -1)
 					{		
 						//New position of the object
 						int newPositionX, newPositionY;
@@ -106,6 +106,7 @@ public class Spider extends Node{
 		}
 	}
 	private void randomMove() {
+		synchronized(lock){
 			// Figure out all the nodes around
 			Node[] surroundingNodes = adjacentNodes(maze);
 			//List of empty surrounding nodes
@@ -121,6 +122,8 @@ public class Spider extends Node{
 			}
 			
 			if(emptySurroundingNodes.size() > 0){
+				System.out.println(emptySurroundingNodes);
+				
 				Random random = new Random();
 				int position = random.nextInt(emptySurroundingNodes.size());
 				
@@ -128,16 +131,21 @@ public class Spider extends Node{
 				int newPositionX, newPositionY;
 				//Previous position of the object
 				int previousPositonX = getRow(), previousPositionY = getCol();
-
-				newPositionX = nextPosition.getRow();
-				newPositionY = nextPosition.getCol();
-
+				System.out.println("Previous: " + previousPositonX + " " + previousPositionY);
+				newPositionX = emptySurroundingNodes.get(position).getRow();//nextPosition.getRow();
+				newPositionY = emptySurroundingNodes.get(position).getCol();//nextPosition.getCol();
+				System.out.println("New: " + newPositionX + " " + newPositionY + " TypeOfNode: " + maze[newPositionX][newPositionY].getNodeType());
 				setRow(newPositionX);
 				setCol(newPositionY);
+				
 
 				maze[newPositionX][newPositionY] = (Spider)this;
-				maze[previousPositonX][previousPositionY] = emptySurroundingNodes.get(position);;
+				System.out.println("New position in maze: " + maze[newPositionX][newPositionY]);
+				System.out.println("New position in maze: " + maze[newPositionX][newPositionY].getNodeType());
+				
+				maze[previousPositonX][previousPositionY] = new Node(previousPositonX, previousPositionY, -1);
 			}
+		}
 		
 	}
 	public void traverse(int row, int col){
