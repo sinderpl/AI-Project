@@ -89,7 +89,7 @@ public class IDAStarTraversator implements Traversator{
 	}
 
 	@Override
-	public LinkedList<Node> getNextNode() {
+	public Node getNextNode() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -28,7 +28,7 @@ public class Maze {
 		
 		//Place the player on the field before the spiders for reference.
 		placePlayer(5, -1);
-		featureNumber = 1;
+		featureNumber = 3;
 		pool = new ThreadPool(featureNumber);
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
 //		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge

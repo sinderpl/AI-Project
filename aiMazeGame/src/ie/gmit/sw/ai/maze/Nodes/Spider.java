@@ -1,8 +1,5 @@
 package ie.gmit.sw.ai.maze.Nodes;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Random;
 import java.util.concurrent.*;
 
@@ -24,7 +21,6 @@ public class Spider extends Node{
 	private Player player = null;
 	private Node nextPosition;
 	private boolean canMove = false;
-	private LinkedList<Node> nextPath;
 
 	public Spider(int row, int col, int nodeType, Object lock, ThreadPool pool, Node[][] maze, Player player) {
 
@@ -47,11 +43,12 @@ public class Spider extends Node{
 					Thread.sleep(300);
 					//Find the path to take
 					traverse(getRow(), getCol());
-					// Move around the maze
-					System.out.println("Player" + player);
-					if(canMove && getPathCost() < 2){
+					// Move around the maze if within range
+					if(canMove && getHeuristic(player) < 9){
+						System.out.println("Searching");
 						roam();  
-					} else {               
+					} else {    
+						System.out.println("Walking");
 						randomMove();       
 					}
 
@@ -109,7 +106,6 @@ public class Spider extends Node{
 		}
 	}
 	private void randomMove() {
-		synchronized(lock){
 			// Figure out all the nodes around
 			Node[] surroundingNodes = adjacentNodes(maze);
 			//List of empty surrounding nodes
@@ -142,14 +138,13 @@ public class Spider extends Node{
 				maze[newPositionX][newPositionY] = (Spider)this;
 				maze[previousPositonX][previousPositionY] = nextPosition;
 			}
-		}
+		
 	}
 	public void traverse(int row, int col){
 			Traversator t = new AStarTraversator(player);
 			t.traverse(maze, maze[row][col]);
-			nextPath = t.getNextNode();
-			nextPosition = nextPath.getFirst();
-			
+			nextPosition = t.getNextNode();
+			System.out.println(nextPosition);
 			if(nextPosition != null){
 	            canMove = true;
 	        } else {

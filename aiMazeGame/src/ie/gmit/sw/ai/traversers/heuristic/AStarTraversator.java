@@ -64,12 +64,12 @@ public class AStarTraversator implements Traversator{
 			
 		}
 		
-		path.addAll(closed);
+		path.addFirst(closed.get(0));
 	}
 
 	@Override
-	public LinkedList<Node> getNextNode() {
-		System.out.println(path.getLast());
-		return path;
+	public Node getNextNode() {
+		System.out.println(path);
+		return path.getFirst();
 	}
 }
