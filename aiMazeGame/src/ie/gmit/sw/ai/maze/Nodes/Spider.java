@@ -34,11 +34,11 @@ public class Spider extends Node{
 		//Player variable
 		this.player = player;
 		//Execute the spider movement in a thread
-		executor.submit(() ->{
+		this.pool.submit(() ->{
 			while(true){
 				try{
 					//Time between movements
-					Thread.sleep(30);
+					Thread.sleep(300);
 					//Find the path to take
 					traverse(getRow(), getCol());
 					// Move around the maze
@@ -141,7 +141,6 @@ public class Spider extends Node{
 			Traversator t = new AStarTraversator(player);
 			t.traverse(maze, maze[row][col]);
 			nextPosition = t.getNextNode();
-			System.out.println(player);
 			
 			if(nextPosition != null){
 	            canMove = true;
