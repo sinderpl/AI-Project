@@ -59,15 +59,17 @@ public class AStarTraversator implements Traversator{
 					child.setParent(node);
 					child.setPathCost(node.getPathCost() + 1);
 					open.add(child);
-					
 				}
 			}				
 			
-		}path.addFirst(closed.get(0));
+		}
+		
+		path.addAll(closed);
 	}
 
 	@Override
-	public Node getNextNode() {
-		return path.getFirst();
+	public LinkedList<Node> getNextNode() {
+		System.out.println(path.getLast());
+		return path;
 	}
 }

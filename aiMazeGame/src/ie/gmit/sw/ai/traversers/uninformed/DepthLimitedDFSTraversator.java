@@ -1,5 +1,7 @@
 package ie.gmit.sw.ai.traversers.uninformed;
 
+import java.util.LinkedList;
+
 import ie.gmit.sw.ai.maze.*;
 import ie.gmit.sw.ai.maze.Nodes.Node;
 import ie.gmit.sw.ai.traversers.Traversator;
@@ -50,7 +52,7 @@ public class DepthLimitedDFSTraversator implements Traversator{
 	}
 
 	@Override
-	public Node getNextNode() {
+	public LinkedList<Node> getNextNode() {
 		// TODO Auto-generated method stub
 		return null;
 	}

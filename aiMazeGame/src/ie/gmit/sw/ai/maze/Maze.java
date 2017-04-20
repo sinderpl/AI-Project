@@ -28,22 +28,17 @@ public class Maze {
 		
 		//Place the player on the field before the spiders for reference.
 		placePlayer(5, -1);
-		featureNumber = 5;//(int)((dimension * dimension) * 0.0005);
-		System.out.println(featureNumber);
+		featureNumber = 1;
 		pool = new ThreadPool(featureNumber);
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
-		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
-		//addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
-		//addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
-		//addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
-		//addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
-		//addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
-		//addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
+//		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
+//		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
+//		addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
+//		addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
+//		addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
+//		addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
+//		addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
 	}
-	
-	
-	
-	
 	
 	private void init(){
 		for (int row = 0; row < maze.length; row++){
