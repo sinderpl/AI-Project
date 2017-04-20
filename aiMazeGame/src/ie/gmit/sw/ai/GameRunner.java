@@ -15,7 +15,9 @@ public class GameRunner implements KeyListener{
 	private int currentRow;
 	private int currentCol;
 	private MazeGenerator generator;
+	private JPanel panel;
 	//private static String mazeAlgo ="HuntAndKill";
+	private JLabel lblHealth;
 	
 	//GameRunner takes in String mazeAlgo as parameter for Maze Generation
 	public GameRunner(String mazeAlgo) throws Exception{
@@ -70,15 +72,15 @@ public class GameRunner implements KeyListener{
     	view.setMaximumSize(d);
     	
     	JFrame f = new JFrame("GMIT - B.Sc. in Computing (Software Development)");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.addKeyListener(this);
         f.getContentPane().setLayout(new FlowLayout());
         f.add(view);
         f.setSize(1000,1000);
         f.setLocation(100,100);
         f.pack();
+        f.setResizable(false);
         f.setVisible(true);
-        
 	}
 	
 
@@ -137,6 +139,7 @@ public class GameRunner implements KeyListener{
 			return false;
 		}
 		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 14){
+			System.out.println("Congratulations you Won!!!");
 			System.exit(0);
 		}else{
 			return false; //Can't move

@@ -7,29 +7,8 @@ public class Player extends Node {
 
 	private int health;
 	private Sword sword;
-	private Door door;
-	private Node[][] maze;
 
 	public Player(int row, int col, int nodeType) {
 		super(row, col, nodeType);
-
-		this.door = door;
-		this.maze = maze;
-
-		/**
-		while(true){
-			try{
-				traverse();
-			}catch (Exception e) {
-				
-			}
-		}**/
 	}
-
-	/**
-	private void traverse() {
-		Traversator t = new AStarTraversator(door);
-		t.traverse(maze, maze[getRow()][getCol()]);
-	}
-**/
 }
