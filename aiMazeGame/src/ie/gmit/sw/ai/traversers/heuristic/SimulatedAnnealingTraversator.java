@@ -80,4 +80,10 @@ public class SimulatedAnnealingTraversator implements Traversator{
             temperature *= (1 - alpha); //Cool system
         }
 	}
+
+	@Override
+	public Node getNextNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

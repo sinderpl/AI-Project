@@ -37,4 +37,10 @@ public class RandomWalk implements Traversator{
 		
 		if (!complete) System.out.println("*** Out of steps....");
 	}
+
+	@Override
+	public Node getNextNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

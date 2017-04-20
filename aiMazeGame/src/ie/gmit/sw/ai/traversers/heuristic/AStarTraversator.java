@@ -7,18 +7,21 @@ import ie.gmit.sw.ai.traversers.TraversatorStats;
 
 import java.util.*;
 public class AStarTraversator implements Traversator{
-	private Node goal;
+	private Node goal; 
+	 private LinkedList<Node> path = null;
 	
 	public AStarTraversator(Node goal){
 		this.goal = goal;
 	}
 	
 	public void traverse(Node[][] maze, Node node) {
+		
         long time = System.currentTimeMillis();
     	int visitCount = 0;
     	
 		PriorityQueue<Node> open = new PriorityQueue<Node>(20, (Node current, Node next)-> (current.getPathCost() + current.getHeuristic(goal)) - (next.getPathCost() + next.getHeuristic(goal)));
 		java.util.List<Node> closed = new ArrayList<Node>();
+		path = new LinkedList<>();
     	   	
 		open.offer(node);
 		node.setPathCost(0);		
@@ -34,14 +37,15 @@ public class AStarTraversator implements Traversator{
 				break;
 			}
 			
-			try { //Simulate processing each expanded node
+			/*try { //Simulate processing each expanded node
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			}*/
 			
 			//Process adjacent nodes
-			Node[] children = node.children(maze);
+			Node[] children = node.adjacentNodes(maze);
+			
 			for (int i = 0; i < children.length; i++) {
 				Node child = children[i];
 				int score = node.getPathCost() + 1 + child.getHeuristic(goal);
@@ -55,8 +59,15 @@ public class AStarTraversator implements Traversator{
 					child.setParent(node);
 					child.setPathCost(node.getPathCost() + 1);
 					open.add(child);
+					
 				}
-			}									
-		}
+			}				
+			
+		}path.addFirst(closed.get(0));
+	}
+
+	@Override
+	public Node getNextNode() {
+		return path.getFirst();
 	}
 }

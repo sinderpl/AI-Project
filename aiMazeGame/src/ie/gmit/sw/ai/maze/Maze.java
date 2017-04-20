@@ -32,7 +32,6 @@ public class Maze {
 		placePlayer(5, -1);
 		featureNumber = (int)((dimension * dimension) * 0.0005);
 		pool = new ThreadPool(featureNumber);
-		//System.out.println(featureNumber * 8);
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
 		//addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
 		//addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
