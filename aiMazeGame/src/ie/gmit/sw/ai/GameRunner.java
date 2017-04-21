@@ -16,9 +16,10 @@ public class GameRunner implements KeyListener{
 	private Maze model;
 	private int currentRow;
 	private int currentCol;
+	private FuzzySprite sprite;
 	
 	//Labels
-	public JLabel swordLabel;
+	public JLabel weaponLabel;
 	public JLabel healthLabel;
 	public JLabel bombLabel ;
 	
@@ -41,10 +42,10 @@ public class GameRunner implements KeyListener{
     	
     	
     	JPanel panel = new JPanel();
-    	swordLabel = new JLabel("Sword: " + 0);
-    	healthLabel = new JLabel("Health: " + 0);
+    	weaponLabel = new JLabel("Weapon: None");
+    	healthLabel = new JLabel("Health: " + 100);
     	bombLabel = new JLabel("Bomb: " + 0);
-    	panel.add(swordLabel);
+    	panel.add(weaponLabel);
     	panel.add(healthLabel);
     	panel.add(bombLabel);
 
@@ -95,7 +96,22 @@ public class GameRunner implements KeyListener{
     }
     public void keyReleased(KeyEvent e) {} //Ignore
 	public void keyTyped(KeyEvent e) {} //Ignore
-
+	
+	private void updatePlayerStats(){
+		healthLabel.setText("Health: " + (int)model.getPlayer().getHealth() * 10);
+		if(model.getPlayer().isSword()){
+			weaponLabel.setText("Weapon: Sword");
+		}
+		else if(model.getPlayer().isBomb()){
+			weaponLabel.setText("Weapon: Bomb");
+		}
+		else if(model.getPlayer().isHbomb()){
+			weaponLabel.setText("Weapon: H-Bomb");
+		}
+		else{
+			weaponLabel.setText("Weapon: None");
+		}
+	}
     
 	private boolean isValidMove(int row, int col){
 		if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1){
@@ -104,24 +120,39 @@ public class GameRunner implements KeyListener{
 			return true;
 		}else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 1){
 			model.get(row, col).setNodeType(0);
-			//Weaponstrength+=3;
+			model.getPlayer().setSword(true);
+			model.getPlayer().setBomb(false);
+			model.getPlayer().setHbomb(false);
+			updatePlayerStats();
 			return false;
 		}
 		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 2){
 			model.get(row, col).setNodeType(0);
-			//Weaponstrength+=3;
+			model.getPlayer().setHelp(true);
+			updatePlayerStats();
 			return false;
 		}
 		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 3){
 			model.get(row, col).setNodeType(0);
-			//Weaponstrength+=3;
+			model.getPlayer().setSword(false);
+			model.getPlayer().setBomb(true);
+			model.getPlayer().setHbomb(false);
+			updatePlayerStats();
 			return false;
 		}
 		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 4){
 			model.get(row, col).setNodeType(0);
-			//Weaponstrength+=3;
+			model.getPlayer().setSword(false);
+			model.getPlayer().setBomb(false);
+			model.getPlayer().setHbomb(true);
+			updatePlayerStats();
 			return false;
-		}
+	}
+//			else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() >5 && model.get(row, col).getNodeType() <14){
+//			sprite = model.getSpriteId(row, col);
+//			sprite.engage();
+//			return false;
+//		}
 		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 14){
 			JFrame winning = new JFrame("Winning !!");
 			winning.setLayout(new GridLayout(1, 1));

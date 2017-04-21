@@ -17,9 +17,9 @@ FUNCTION_BLOCK Engage
     END_FUZZIFY
 
     FUZZIFY angerLevel
-    	TERM annoyed := sigm -5 3;
-        TERM mad := gbell 2 4 5;
-        TERM furious := sigm 5 7;
+    	TERM annoyed := sigm 0 3;
+        TERM mad := gbell 2 4 8;
+        TERM furious := sigm 7 10;
     END_FUZZIFY
     
     FUZZIFY currentLife
@@ -30,9 +30,9 @@ FUNCTION_BLOCK Engage
 
     DEFUZZIFY lifeForce
     	TERM dead := (0, 1)  (0.5, 0);
-       	TERM low := trape 0.4 2 3 4;
-        TERM damaged := trape 2 4 6 9;
-        TERM full := (8, 0)  (10, 1);
+       	TERM low := trape 4 20 30 40;
+        TERM damaged := trape 20 40 60 90;
+        TERM full := (80, 0)  (100, 1);
         METHOD : COG;
         DEFAULT := 0;
     END_DEFUZZIFY

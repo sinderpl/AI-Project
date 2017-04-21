@@ -3,6 +3,7 @@ package ie.gmit.sw.ai.Sprites;
 import java.util.ArrayList;
 import java.util.Random;
 
+import ie.gmit.sw.ai.FuzzyLogic.Engageable;
 import ie.gmit.sw.ai.Nodes.Node;
 import ie.gmit.sw.ai.Nodes.Player;
 import ie.gmit.sw.ai.Traversators.*;
@@ -19,12 +20,15 @@ public class FuzzySprite extends Sprite implements Runnable {
 	private boolean canMove;
 	private Player player;
 	private Node nextPosition;
+	private double health;
+	Random random = new Random();
+	private int id;
 
 	public FuzzySprite(String name, String... images) throws Exception {
 		super(name, images);
 	}
 
-	public FuzzySprite(int row, int col, int feature, Object lock, Node[][] maze, Player player) throws Exception {
+	public FuzzySprite(int row, int col, int feature, Object lock, Node[][] maze, Player player, int counter) throws Exception {
 		this.row = row;
 		this.col = col;
 		this.feature =feature;
@@ -32,6 +36,7 @@ public class FuzzySprite extends Sprite implements Runnable {
 		node.setRow(row);
 		node.setCol(col);
 		node.setNodeType(feature);
+		this.id =counter;
 		
 		//Lock variable
 		this.lock = lock;
@@ -39,22 +44,26 @@ public class FuzzySprite extends Sprite implements Runnable {
 		this.maze = maze;
 		
 		//Switch statement to check what type of spider
-				//This determines the Traversator for each spider
-				switch (node.getNodeType()) {
-				case 6:
-					traversator = new AStarTraversator(player);
-					break;
-				case 7:
-					//IDA not very good for controlling spiders - too slow
-					//t = new IDAStarTraversator(player);
-					traversator= new BasicHillClimbingTraversator(player);
-					break;
-				case 8:
-					traversator = new DepthLimitedDFSTraversator(10, player);
-					break;
-				default:
-					break;
-				}
+		//This determines the Traversator for each spider
+		switch (node.getNodeType()) {
+		case 6:
+			health = 8;
+			traversator = new AStarTraversator(player);
+			break;
+		case 7:
+			//IDA not very good for controlling spiders - too slow
+			//t = new IDAStarTraversator(player);
+			health = 4;
+			traversator= new BasicHillClimbingTraversator(player);
+			break;
+		case 8:
+			health = 2;
+			traversator = new DepthLimitedDFSTraversator(10, player);
+			break;
+		default:
+			health = random.nextInt(10);
+			break;
+		}
 	}
 
 	@Override
@@ -62,6 +71,7 @@ public class FuzzySprite extends Sprite implements Runnable {
 		long time = System.currentTimeMillis();
 		while(true){
 			try {
+				
 				//Different sleep time per spider type
 				Thread.sleep(500 * feature/2);
 				//Find the path to take
@@ -69,6 +79,15 @@ public class FuzzySprite extends Sprite implements Runnable {
 					traverse(node.getRow(), node.getCol(), traversator);
 				}
 				// Move around the maze if within range
+				if(node.getHeuristic(player) <= 1){
+					System.out.println("player health " + player.getHealth());
+					Engageable e = new Engageable();
+					double newHealth = e.engage(player.getWeapon(), health, player.getHealth()/10);
+					System.out.println("newhalth: " +  newHealth);
+					player.setHealth(Math.round(newHealth));
+					
+					System.out.println("Health after "+player.getHealth());
+				}
 				if(canMove && node.getHeuristic(player) < 10){
 					roam();     
 				} else {    
@@ -152,7 +171,7 @@ public class FuzzySprite extends Sprite implements Runnable {
 
 			if(emptySurroundingNodes.size() > 0){
 
-				Random random = new Random();
+				
 				int position = random.nextInt(emptySurroundingNodes.size());
 
 				//New position of the object
@@ -179,6 +198,11 @@ public class FuzzySprite extends Sprite implements Runnable {
 		} else {
 			canMove = false;
 		}
+	}
+	
+	public void engage(){
+		Engageable e = new Engageable();
+		player.setHealth(e.engage(player.getWeapon(), this.health, player.getHealth()));
 	}
 
 }
