@@ -35,13 +35,13 @@ public class Maze {
 		
 		//Number of each spider
 		featureNumber = 1;
-		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
+		//addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
 //		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
 //		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
 //		addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
 //		addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
 //		addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
-//		addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
+		addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
 //		addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
 	}
 	
@@ -99,6 +99,7 @@ public class Maze {
 					maze[row][col].setNodeType(feature);
 				}
 				else if(feature >= 10){
+					System.out.println("neural sprite");
 					es.submit(new NeuralSprite(row, col, feature, lock, maze, getPlayer(), counter));
 					maze[row][col].setNodeType(feature);
 				}

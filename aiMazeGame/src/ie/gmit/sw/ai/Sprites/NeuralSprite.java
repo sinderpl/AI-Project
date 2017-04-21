@@ -2,7 +2,7 @@ package ie.gmit.sw.ai.Sprites;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+import ie.gmit.sw.ai.nn.EngageNN;
 import ie.gmit.sw.ai.Nodes.Node;
 import ie.gmit.sw.ai.Nodes.Player;
 import ie.gmit.sw.ai.Traversators.AStarTraversator;
@@ -22,6 +22,7 @@ public class NeuralSprite extends Sprite implements Runnable{
 	private boolean canMove;
 	private Player player;
 	private Node nextPosition;
+	private double strength;
 	
 	public NeuralSprite(String name, String... images) throws Exception {
 		super(name, images);
@@ -31,6 +32,7 @@ public class NeuralSprite extends Sprite implements Runnable{
 		this.col = col;
 		this.feature =feature;
 		this.player = player;
+		this.strength = 2;
 		node .setRow(row);
 		node.setCol(col);
 		node.setNodeType(feature);
@@ -52,12 +54,51 @@ public class NeuralSprite extends Sprite implements Runnable{
 			traversator= new BasicHillClimbingTraversator(player);
 			break;
 		case 12:
-			traversator = new DepthLimitedDFSTraversator(10, player);
+			traversator = new AStarTraversator(player);//DepthLimitedDFSTraversator(10, player);
 			break;
 		default:
 			break;
 		}
 	}
+	
+	public void engageNN(){
+		double healthy = 0;
+		EngageNN enn = new EngageNN();
+		try {
+			if(player.getHealth() >= 100)
+				healthy = 2;
+			else if (player.getHealth() >= 40)
+				healthy = 1;
+			else
+				healthy = 0;
+			int bombChoice = 1;
+			
+			int action = enn.action(healthy, 1.0 , bombChoice, 1.0);
+			if (action == 2){
+				System.out.println("action is attack");
+				//EngageFuzzy ef = new EngageFuzzy();
+				//player.setHealth(ef.fight(player.getSwordStrength(), player.getHealth(), this.strength));
+			}
+			else if (action == 1) {
+				System.out.println("action is panic");
+			}
+			else if (action == 3){
+				System.out.println("hide");
+				maze[this.row][this.col].setNodeType('\u0020');
+				maze[row + 1][row + 1].setNodeType('\u0037');
+				this.row = row + 1;
+				this.col = row + 1;
+			}
+			else if (action == 4){
+				System.out.println("run away");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 
 	@Override
 	public void run() {
@@ -65,15 +106,25 @@ public class NeuralSprite extends Sprite implements Runnable{
 		while(true){
 			try {
 				//Different sleep time per spider type
-				Thread.sleep(500 * feature/2);
+				Thread.sleep(400);//500 * feature/2);
 				//Find the path to take
 				if(feature != 13){
 					traverse(node.getRow(), node.getCol(), traversator);
 				}
 				// Move around the maze if within range
-				if(canMove && node.getHeuristic(player) < 10){
-					roam();     
-				} else {    
+				if(node.getHeuristic(player) < 2){
+					System.out.println("engaging");
+					engageNN();
+					//roam();     
+				}
+				else if(canMove && node.getHeuristic(player) < 10  ){
+					System.out.println("roaming");
+					roam();
+					//engageNN();
+				}
+				
+				else {   
+					//System.out.println("random move");
 					randomMove();       
 				}
 			} catch (InterruptedException e) {

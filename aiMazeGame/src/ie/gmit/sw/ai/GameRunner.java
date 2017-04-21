@@ -10,7 +10,7 @@ import ie.gmit.sw.ai.Sprites.ItemSprite;
 import ie.gmit.sw.ai.Sprites.NeuralSprite;
 import ie.gmit.sw.ai.Sprites.Sprite;
 public class GameRunner implements KeyListener{
-	private static final int MAZE_DIMENSION = 50;
+	private static final int MAZE_DIMENSION = 20;
 	private static final int IMAGE_COUNT = 15;
 	private GameView view;
 	private Maze model;

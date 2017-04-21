@@ -22,17 +22,17 @@ public class SpiderCharacter{
      */
 
     /*
-     * 1 = Spider health  (1 = Full Health, 0.5 = Injured , 0 = Close to death)
-     * 2 = EnemyWeapon	(0 = None, 0.3 = Sword , 0.6 = Bomb, 1 = Hydrogen Bomb)
-     * 3 = Proximity (	)
+     * 1 = Spider health  (8 = Full Health, 4 = Injured , 2 = Close to death)
+     * 2 = EnemyWeapon	(0 = None, 1 = Sword , 2 = Bomb, 3 = Hydrogen Bomb)
+     * 3 = Proximity ( 8 = Far Away, 4 = Close, )
      */
     private double[][] data =
 
     { //Health, Sword, Bomb, Enemies
     		
-    		{ 1, 0 }, { 1, 0.3 }, { 1, 0.6 }, { 1, 1 }, // Full health, EnemyWeapon types added
-    		{ 0.5, 0 }, { 0.5, 0.3 }, { 0.5, 0.6 }, { 0.5, 1 }, // Injured, EnemyWeapon types added
-    		{ 0.5, 0 }, { 0.5, 0.3 }, { 0.5, 0.6 }, { 0.5, 1 } // Close to death, EnemyWeapon types added
+    		{ 8, 0 }, { 8, 1}, { 8, 2 }, { 8, 3 }, // Full health, EnemyWeapon types added
+    		{ 0.5, 0 }, { 0.5, 1 }, { 0.5, 2 }, { 0.5, 3 }, // Injured, EnemyWeapon types added
+    		{ 0.5, 0 }, { 0.5, 1 }, { 0.5, 2 }, { 0.5, 3 } // Close to death, EnemyWeapon types added
     	
     		/**
 	    	{ 1, 0, 0, 0 }, { 1, 0, 0, 0.5 }, { 1, 0, 0, 1 }, // full health, enemies covered
