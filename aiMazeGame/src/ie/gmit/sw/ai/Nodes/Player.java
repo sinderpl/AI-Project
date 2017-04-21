@@ -8,7 +8,7 @@ public class Player extends Node {
 	private Node exit;
 	private AStarTraversator traversator;
 	private Node[][] maze;
-	private LinkedList<Node> playerPath;
+	private List<Node> playerPath;
 	
 	
 	public Player(int row, int col, int nodeType, Node[][] maze) {

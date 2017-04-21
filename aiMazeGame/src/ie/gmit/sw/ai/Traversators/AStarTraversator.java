@@ -6,6 +6,7 @@ import ie.gmit.sw.ai.Nodes.Node;
 public class AStarTraversator implements Traversator{
 	private Node goal; 
 	private LinkedList<Node> path = null;
+	private List<Node> fullPath = null;
 	
 	public AStarTraversator(Node goal){
 		this.goal = goal;
@@ -62,6 +63,7 @@ public class AStarTraversator implements Traversator{
 		}
 		
 		path.addFirst(closed.get(1));
+		fullPath = closed;
 	}
 
 	@Override
@@ -69,7 +71,7 @@ public class AStarTraversator implements Traversator{
 		return path.getFirst();
 	}
 	
-	public LinkedList<Node>  getPath(){
-		return path;
+	public List<Node> getPath(){
+		return fullPath;
 	}
 }
