@@ -6,6 +6,7 @@ import ie.gmit.sw.ai.Nodes.Node;
 public class BruteForceTraversator implements Traversator{
 	private boolean dfs = false;
 	private LinkedList<Node> path;
+	private boolean pathFound = false;
 	
 	public BruteForceTraversator(boolean depthFirst){
 		this.dfs = depthFirst;
@@ -46,14 +47,21 @@ public class BruteForceTraversator implements Traversator{
 					}
 					
 				}
-				path.addAll(queue);
-			}			
+			}
+			System.out.println(queue.getFirst());
+			path.addAll(queue);
+			pathFound =true;		
 		}
 	}
 
 	@Override
 	public Node getNextNode() {
-		
-		return path.getFirst();
+		System.out.println(path.getFirst());
+		if(pathFound  == true){
+			return path.getFirst();
+		}
+		else{
+			return null;
+		}
 	}
 }

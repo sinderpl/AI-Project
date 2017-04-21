@@ -6,6 +6,8 @@ import java.util.Random;
 import ie.gmit.sw.ai.Nodes.Node;
 import ie.gmit.sw.ai.Nodes.Player;
 import ie.gmit.sw.ai.Traversators.AStarTraversator;
+import ie.gmit.sw.ai.Traversators.BasicHillClimbingTraversator;
+import ie.gmit.sw.ai.Traversators.DepthLimitedDFSTraversator;
 import ie.gmit.sw.ai.Traversators.Traversator;
 
 public class NeuralSprite extends Sprite implements Runnable{
@@ -39,44 +41,22 @@ public class NeuralSprite extends Sprite implements Runnable{
 		this.maze = maze;
 		
 		//Switch statement to check what type of spider
-				//This determines the Traversator for each spider
-				switch (node.getNodeType()) {
-				case 6:
-					traversator = new AStarTraversator(player);
-					break;
-				case 7:
-					//IDA not very good for controlling spiders - too slow
-					//t = new IDAStarTraversator(player);
-					traversator = new AStarTraversator(player);
-					break;
-				case 8:
-					//traversator= new BasicHillClimbingTraversator(player);
-					traversator = new AStarTraversator(player);
-					break;
-				case 9:
-					//traversator= new BasicHillClimbingTraversator(player);
-					traversator = new AStarTraversator(player);
-					break;
-				case 10:
-					//traversator = new BruteForceTraversator(true);
-					traversator = new AStarTraversator(player);
-					break;
-				case 11:
-					//traversator = new BruteForceTraversator(true);
-					traversator = new AStarTraversator(player);
-					break;
-				case 12:
-					//traversator = new DepthLimitedDFSTraversator(maze.length / 2);
-					traversator = new AStarTraversator(player);
-					break;
-				case 13:
-					//traversator = new DepthLimitedDFSTraversator(maze.length / 2);
-					traversator = new AStarTraversator(player);
-					break;
-
-				default:
-					break;
-				}
+		//This determines the Traversator for each spider
+		switch (node.getNodeType()) {
+		case 10:
+			traversator = new AStarTraversator(player);
+			break;
+		case 11:
+			//IDA not very good for controlling spiders - too slow
+			//t = new IDAStarTraversator(player);
+			traversator= new BasicHillClimbingTraversator(player);
+			break;
+		case 12:
+			traversator = new DepthLimitedDFSTraversator(10, player);
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override
@@ -87,8 +67,9 @@ public class NeuralSprite extends Sprite implements Runnable{
 				//Different sleep time per spider type
 				Thread.sleep(500 * feature/2);
 				//Find the path to take
-				traverse(node.getRow(), node.getCol(), traversator);
-
+				if(feature != 9){
+					traverse(node.getRow(), node.getCol(), traversator);
+				}
 				// Move around the maze if within range
 				if(canMove && node.getHeuristic(player) < 10){
 					roam();     

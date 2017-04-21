@@ -57,7 +57,6 @@ public class BasicHillClimbingTraversator implements Traversator{
 
 	@Override
 	public Node getNextNode() {
-		System.out.println(n);
 		return n;
 	}
 }

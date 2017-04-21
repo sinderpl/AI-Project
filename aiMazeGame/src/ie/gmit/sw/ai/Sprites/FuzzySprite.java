@@ -5,8 +5,7 @@ import java.util.Random;
 
 import ie.gmit.sw.ai.Nodes.Node;
 import ie.gmit.sw.ai.Nodes.Player;
-import ie.gmit.sw.ai.Traversators.AStarTraversator;
-import ie.gmit.sw.ai.Traversators.Traversator;
+import ie.gmit.sw.ai.Traversators.*;
 
 public class FuzzySprite extends Sprite implements Runnable {
 
@@ -48,33 +47,11 @@ public class FuzzySprite extends Sprite implements Runnable {
 				case 7:
 					//IDA not very good for controlling spiders - too slow
 					//t = new IDAStarTraversator(player);
-					traversator = new AStarTraversator(player);
+					traversator= new BasicHillClimbingTraversator(player);
 					break;
 				case 8:
-					//traversator= new BasicHillClimbingTraversator(player);
-					traversator = new AStarTraversator(player);
+					traversator = new DepthLimitedDFSTraversator(10, player);
 					break;
-				case 9:
-					//traversator= new BasicHillClimbingTraversator(player);
-					traversator = new AStarTraversator(player);
-					break;
-				case 10:
-					//traversator = new BruteForceTraversator(true);
-					traversator = new AStarTraversator(player);
-					break;
-				case 11:
-					//traversator = new BruteForceTraversator(true);
-					traversator = new AStarTraversator(player);
-					break;
-				case 12:
-					//traversator = new DepthLimitedDFSTraversator(maze.length / 2);
-					traversator = new AStarTraversator(player);
-					break;
-				case 13:
-					//traversator = new DepthLimitedDFSTraversator(maze.length / 2);
-					traversator = new AStarTraversator(player);
-					break;
-
 				default:
 					break;
 				}
@@ -88,8 +65,9 @@ public class FuzzySprite extends Sprite implements Runnable {
 				//Different sleep time per spider type
 				Thread.sleep(500 * feature/2);
 				//Find the path to take
-				traverse(node.getRow(), node.getCol(), traversator);
-
+				if(feature != 9){
+					traverse(node.getRow(), node.getCol(), traversator);
+				}
 				// Move around the maze if within range
 				if(canMove && node.getHeuristic(player) < 10){
 					roam();     
