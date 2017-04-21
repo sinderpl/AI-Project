@@ -2,7 +2,6 @@ package ie.gmit.sw.ai.Sprites;
 
 import java.util.ArrayList;
 import java.util.Random;
-import ie.gmit.sw.ai.nn.EngageNN;
 import ie.gmit.sw.ai.nn.SpiderCharacter;
 import ie.gmit.sw.ai.FuzzyLogic.Engageable;
 import ie.gmit.sw.ai.Nodes.Node;
