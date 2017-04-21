@@ -39,8 +39,38 @@ We have managed to implement a lot of the technologies specified in the Marking 
         angerLevel : REAL; -> The anger/strength level of the spider
         currentLife : REAL; -> The current life of the player
  ```
- The output is a new health variable for player. Overall there are 27 rules in our codeblock:
+ * The output is a new health variable for player. Overall there are 27 rules in our codeblock:
  ```
  RULE 4 : IF weapon IS sword AND angerLevel IS annoyed AND currentLife IS damaged THEN lifeForce IS low;
  ```
-
+ * The spiders (**FuzzySprite.java** **NeuralSprite.java** ) can call on Fuzzy Logic using the following:
+  ```
+ Engageable e = new Engageable();
+		double newHealth = e.engage(player.getWeapon(), anger, player.getHealth());
+ ```
+ 
+ 2. Neural Network
+  * We have managed to implement a Neural Network based on the in class example. We have created a very extensive data set for the spider to help the decision making (**NeuralSprite.java**).
+  It is called on using the following four parameters:
+  ```
+   int action = enn.action(spiderHealth, enemyWeapon, proximity, playerHealth);
+  ```
+  
+  There is a lot of input data to process for the spider (**SpiderCharacter.java** ):
+  
+  
+   ```
+    /*
+     * 1 = Spider health  (8 = Full Health, 4 = Injured , 2 = Close to death)
+     * 2 = EnemyWeapon	(3 = Hydrogen Bomb ,2 = Bomb, 1 = Sword , 0 = None)
+     * 3 = Proximity ( 8 = Far Away, 4 = Nearby,  2 = Interacting)
+     * 4 = EnemyHealth (8  = Full Health, 4 = Half Health 2 = Close to death)
+     */
+     
+  { 8, 0, 2, 8 } , {8, 0, 2, 4 } , {8, 0, 2, 2} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+  { 4, 0, 2, 8 } , {4, 0, 2, 4 } , {4, 0, 2, 2} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+  { 2, 0, 2, 8 } , {2, 0, 2, 4 } , {2, 0, 2, 2} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+  ```
+  The spider only has two choices implemented at the moment, it can either run away or engage the player in a fight depending on these variables.
+   
+   
