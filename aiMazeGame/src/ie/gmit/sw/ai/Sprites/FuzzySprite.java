@@ -1,7 +1,12 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.Sprites;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import ie.gmit.sw.ai.Nodes.Node;
+import ie.gmit.sw.ai.Nodes.Player;
+import ie.gmit.sw.ai.Traversators.AStarTraversator;
+import ie.gmit.sw.ai.Traversators.Traversator;
 
 public class FuzzySprite extends Sprite implements Runnable {
 
@@ -81,12 +86,12 @@ public class FuzzySprite extends Sprite implements Runnable {
 		while(true){
 			try {
 				//Different sleep time per spider type
-				Thread.sleep(500 * feature/2);
+				Thread.sleep(200);//(500 * feature/2);
 				//Find the path to take
 				traverse(node.getRow(), node.getCol(), traversator);
 
 				// Move around the maze if within range
-				if(canMove && node.getHeuristic(player) < 10){
+				if(canMove && node.getHeuristic(player) < 80){
 					roam();     
 				} else {    
 					randomMove();       

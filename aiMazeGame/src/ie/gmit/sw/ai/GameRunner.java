@@ -4,11 +4,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import Sprites.FuzzySprite;
-import Sprites.ItemSprite;
-import Sprites.NeuralSprite;
-import Sprites.Sprite;
 import ie.gmit.sw.ai.Nodes.Node;
+import ie.gmit.sw.ai.Sprites.FuzzySprite;
+import ie.gmit.sw.ai.Sprites.ItemSprite;
+import ie.gmit.sw.ai.Sprites.NeuralSprite;
+import ie.gmit.sw.ai.Sprites.Sprite;
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 50;
 	private static final int IMAGE_COUNT = 14;

@@ -1,6 +1,8 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.Traversators;
 
 import java.util.*;
+
+import ie.gmit.sw.ai.Nodes.Node;
 public class BruteForceTraversator implements Traversator{
 	private boolean dfs = false;
 	private LinkedList<Node> path;

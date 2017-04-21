@@ -1,4 +1,6 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.Traversators;
+
+import ie.gmit.sw.ai.Nodes.Node;
 
 public class BasicHillClimbingTraversator implements Traversator{
 	private Node goal;

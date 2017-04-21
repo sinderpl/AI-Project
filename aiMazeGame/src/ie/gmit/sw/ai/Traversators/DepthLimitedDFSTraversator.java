@@ -1,6 +1,8 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.Traversators;
 
 import java.util.LinkedList;
+
+import ie.gmit.sw.ai.Nodes.Node;
 
 public class DepthLimitedDFSTraversator implements Traversator{
 	private Node[][] maze;

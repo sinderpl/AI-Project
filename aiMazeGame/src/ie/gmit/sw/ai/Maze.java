@@ -3,10 +3,10 @@ package ie.gmit.sw.ai;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import Sprites.FuzzySprite;
-import Sprites.NeuralSprite;
 import ie.gmit.sw.ai.Nodes.Node;
 import ie.gmit.sw.ai.Nodes.Player;
+import ie.gmit.sw.ai.Sprites.FuzzySprite;
+import ie.gmit.sw.ai.Sprites.NeuralSprite;
 
 //2d char array of nodes
 public class Maze {

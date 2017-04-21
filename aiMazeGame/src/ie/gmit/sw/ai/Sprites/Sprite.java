@@ -1,6 +1,10 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.Sprites;
 
 import javax.imageio.*;
+
+import ie.gmit.sw.ai.FuzzyLogic.Engageable;
+import ie.gmit.sw.ai.Traversators.Traversator;
+
 import java.awt.image.*;
 
 public abstract class Sprite implements Engageable{
