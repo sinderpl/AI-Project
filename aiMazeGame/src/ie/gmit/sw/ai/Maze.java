@@ -36,7 +36,7 @@ public class Maze {
 		placeDoor(14, -1);
 		
 		//Number of each spider
-		featureNumber = 6;
+		featureNumber = 10;
 		
 		//Fuzzy spiders
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge

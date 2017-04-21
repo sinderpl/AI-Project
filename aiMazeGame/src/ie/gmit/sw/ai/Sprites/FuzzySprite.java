@@ -47,20 +47,28 @@ public class FuzzySprite extends Sprite implements Runnable {
 		//This determines the Traversator for each spider
 		switch (node.getNodeType()) {
 		case 6:
-			anger = 8;
+			anger = 8;//Sets the spider strength
+			
+			//This spider tries to find the player using AStarTraversator
 			traversator = new AStarTraversator(player);
 			break;
 		case 7:
 			//IDA not very good for controlling spiders - too slow
 			//t = new IDAStarTraversator(player);
-			anger = 4;
+			anger = 4;//Sets the spider strength
+			
+			//This spider tries to find the player using BasicHillClimbingTraversator
 			traversator= new BasicHillClimbingTraversator(player);
 			break;
 		case 8:
-			anger = 2;
+			anger = 2;//Sets the spider strength
+			
+			//This spider tries to find the player using DepthLimitedDFSTraversator
 			traversator = new DepthLimitedDFSTraversator(10, player);
 			break;
 		default:
+			//Set a random anger level between 1-10
+			//This spider walks randomly around the maze
 			anger = random.nextInt(10);
 			break;
 		}
@@ -68,7 +76,6 @@ public class FuzzySprite extends Sprite implements Runnable {
 
 	@Override
 	public void run() {
-		long time = System.currentTimeMillis();
 		while(true){
 			try {
 				//Different sleep time per spider type

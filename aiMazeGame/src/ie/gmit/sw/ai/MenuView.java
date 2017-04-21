@@ -12,6 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+
+//MenuView was a Main menu screen where we tried to implement different maze generation algorithms
+//With to many errors we abandoned it
 public class MenuView extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private String mazeType = "HuntAndKill";

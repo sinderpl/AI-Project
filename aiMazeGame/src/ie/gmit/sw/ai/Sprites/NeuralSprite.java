@@ -22,6 +22,8 @@ public class NeuralSprite extends Sprite implements Runnable{
 	private boolean canMove;
 	private Player player;
 	private Node nextPosition;
+	private int anger;
+	Random random = new Random();
 	
 	public NeuralSprite(String name, String... images) throws Exception {
 		super(name, images);
@@ -44,17 +46,29 @@ public class NeuralSprite extends Sprite implements Runnable{
 		//This determines the Traversator for each spider
 		switch (node.getNodeType()) {
 		case 10:
+			anger = 8;//Sets the spider strength
+			
+			//This spider tries to find the player using AStarTraversator
 			traversator = new AStarTraversator(player);
 			break;
 		case 11:
 			//IDA not very good for controlling spiders - too slow
 			//t = new IDAStarTraversator(player);
+			anger = 4;//Sets the spider strength
+			
+			//This spider tries to find the player using BasicHillClimbingTraversator
 			traversator= new BasicHillClimbingTraversator(player);
 			break;
 		case 12:
+			anger = 2;//Sets the spider strength
+			
+			//This spider tries to find the player using DepthLimitedDFSTraversator
 			traversator = new DepthLimitedDFSTraversator(10, player);
 			break;
 		default:
+			//Set a random anger level between 1-10
+			//This spider walks randomly around the maze
+			anger = random.nextInt(10);
 			break;
 		}
 	}
