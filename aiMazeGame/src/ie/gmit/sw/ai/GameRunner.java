@@ -60,14 +60,6 @@ public class GameRunner implements KeyListener{
         f.setVisible(true);
 	}
 	
-	private void placePlayer(){   	
-    	currentRow = (int) (MAZE_DIMENSION * Math.random());
-    	currentCol = (int) (MAZE_DIMENSION * Math.random());
-    	//model.set(currentRow, currentCol, new Node(currentRow, currentCol, 5)); //A Spartan warrior is at index 5
-    	updateView(); 		
-	}
-
-	
 	private void updateView(){
 		view.setPlayer(model.getPlayer());
 		currentRow = model.getPlayer().getRow();
