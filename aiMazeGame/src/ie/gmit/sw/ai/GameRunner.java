@@ -11,7 +11,7 @@ import ie.gmit.sw.ai.Sprites.NeuralSprite;
 import ie.gmit.sw.ai.Sprites.Sprite;
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 50;
-	private static final int IMAGE_COUNT = 14;
+	private static final int IMAGE_COUNT = 15;
 	private GameView view;
 	private Maze model;
 	private int currentRow;
@@ -85,9 +85,33 @@ public class GameRunner implements KeyListener{
 			model.set(currentRow, currentCol, model.get(row, col));
 			model.set(row, col, model.getPlayer());
 			return true;
+		}else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 1){
+			model.get(row, col).setNodeType(0);
+			//Weaponstrength+=3;
+			return false;
+		}
+		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 2){
+			model.get(row, col).setNodeType(0);
+			//Weaponstrength+=3;
+			return false;
+		}
+		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 3){
+			model.get(row, col).setNodeType(0);
+			//Weaponstrength+=3;
+			return false;
+		}
+		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 4){
+			model.get(row, col).setNodeType(0);
+			//Weaponstrength+=3;
+			return false;
+		}
+		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 14){
+			System.out.println("Congratulations you Won!!!");
+			System.exit(0);
 		}else{
 			return false; //Can't move
 		}
+		return false;
 	}
 	
 	private Sprite[] getSprites() throws Exception{
@@ -109,6 +133,7 @@ public class GameRunner implements KeyListener{
 		sprites[11] = new NeuralSprite("Orange Spider", "resources/orange_spider_1.png", "resources/orange_spider_2.png");
 		sprites[12] = new NeuralSprite("Red Spider", "resources/red_spider_1.png", "resources/red_spider_2.png");
 		sprites[13] = new NeuralSprite("Yellow Spider", "resources/yellow_spider_1.png", "resources/yellow_spider_2.png");
+		sprites[14] = new ItemSprite("Door", "resources/door.png");
 		return sprites;
 	}
 	

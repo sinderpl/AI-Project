@@ -14,6 +14,8 @@ public class Maze {
 	private Object lock = new Object();
 	private ExecutorService es =Executors.newCachedThreadPool();
 	private Player player;
+	private Node door;
+	
 	public Maze(int dimension) throws Exception{
 		maze = new Node[dimension][dimension];
 		init();
@@ -25,6 +27,9 @@ public class Maze {
 		addFeature(3, 0, featureNumber); //3 is a bomb, 0 is a hedge
 		addFeature(4, 0, featureNumber); //4 is a hydrogen bomb, 0 is a hedge
 		placePlayer(5, -1);
+		placeDoor(14, -1);
+		
+		//Number of each spider
 		featureNumber = 2;
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
 		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
@@ -46,6 +51,21 @@ public class Maze {
 				player = new Player(row,col,feature);
 				maze[row][col] = player;
 				placed = true;
+			}
+		}
+	}
+	
+	private void placeDoor(int feature, int replace) {
+		boolean placedDoor = false;
+		while(!placedDoor){
+			int row = (int) (maze.length * Math.random());
+			int col = (int) (maze[0].length * Math.random());
+			
+			if (maze[row][col].getNodeType() == replace){
+				door = new Node(row,col,feature);
+				maze[row][col] = door;
+				door.setGoalNode(true);
+				placedDoor = true;
 			}
 		}
 	}
@@ -113,6 +133,10 @@ public class Maze {
 	
 	public int size(){
 		return this.maze.length;
+	}
+	
+	public Node getDoor(){
+		return this.door;
 	}
 	
 	public String toString(){

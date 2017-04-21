@@ -1,8 +1,6 @@
 package ie.gmit.sw.ai;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,10 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
 public class MenuView extends JFrame{
-	
+	private static final long serialVersionUID = 1L;
 	private String mazeType = "HuntAndKill";
 	
 	//Listener for the buttons
@@ -116,7 +113,6 @@ public class MenuView extends JFrame{
 
 	//Start the game 
 	public void startGame() throws Exception{
-		System.out.println(mazeType);
 		new GameRunner(mazeType);
 	}
 	

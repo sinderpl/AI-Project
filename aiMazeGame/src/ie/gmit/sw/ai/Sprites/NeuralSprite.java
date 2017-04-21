@@ -85,12 +85,12 @@ public class NeuralSprite extends Sprite implements Runnable{
 		while(true){
 			try {
 				//Different sleep time per spider type
-				Thread.sleep(200);//(500 * feature/2);
+				Thread.sleep(500 * feature/2);
 				//Find the path to take
 				traverse(node.getRow(), node.getCol(), traversator);
 
 				// Move around the maze if within range
-				if(canMove && node.getHeuristic(player) < 80){
+				if(canMove && node.getHeuristic(player) < 10){
 					roam();     
 				} else {    
 					randomMove();       
