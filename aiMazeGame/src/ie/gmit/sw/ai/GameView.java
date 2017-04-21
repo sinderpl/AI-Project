@@ -78,7 +78,7 @@ public class GameView extends JPanel implements ActionListener{
         			i = maze.get(row, col).getNodeType();
         			if (i >= 5){
 	        			if (row == currentRow && col == currentCol){
-	        				g2.setColor(Color.GREEN);
+	        				g2.setColor(Color.BLACK);
 	        			}else{
 	        				g2.setColor(reds[0]);
 	        			}

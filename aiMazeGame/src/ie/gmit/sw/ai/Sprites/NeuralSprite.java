@@ -28,6 +28,7 @@ public class NeuralSprite extends Sprite implements Runnable{
 	private double health = 40;
 	private int anger;
 	Random random = new Random();
+	private int counter;
 	
 	public NeuralSprite(String name, String... images) throws Exception {
 		super(name, images);
@@ -80,6 +81,7 @@ public class NeuralSprite extends Sprite implements Runnable{
 	
 	public void engageNN(){
 		//double healthy = 0;
+		if(counter <= 0){
 		SpiderCharacter enn = new SpiderCharacter();
 		try {
 			
@@ -123,25 +125,36 @@ public class NeuralSprite extends Sprite implements Runnable{
 				playerHealth = 2;
 			
 			
-			
+			//Check the neural network for outcomes
 			int action = enn.action(spiderHealth, enemyWeapon, proximity, playerHealth);
 			if (action == 1){
-				System.out.println("action is attack");
+				
+				System.out.println("YOU ARE BEING ATTACKED BY A CHEEKY SPIDER !!!");
+				//Use fuzzy logic to calculate the new player health
 				Engageable ef= new Engageable();
 				playerHealth = ef.engage(player.getWeapon(), this.strength, currentHealth );
 				
 				player.setHealth(playerHealth);
 				health -= enemyWeapon * 40;
+				//Player's new health
+				System.out.println("Player health: " + playerHealth);
+				if (health <= 0){
+					node = new Node(row, col, -1);
+					//TODO Destroy spider
+				}
 			}
 			else if (action == 2) {
-				System.out.println("action is run");
+				System.out.println("The spider decided it is better to run away.");
 				randomMove();
 			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		counter = 30;
+		}
+		counter --;
 	}
 
 
@@ -157,11 +170,10 @@ public class NeuralSprite extends Sprite implements Runnable{
 				}
 				// Move around the maze if within range
 				if(node.getHeuristic(player) < 2){
-					System.out.println("engaging");
 					engageNN();
 				}
 				else if(canMove && node.getHeuristic(player) < 10  ){
-					System.out.println("roaming");
+					System.out.println("Searching for player");
 					roam();
 				}
 				

@@ -155,7 +155,7 @@ public class SpiderCharacter{
         }
 
         int output = (Utils.getMaxIndex(result) + 1);
-        System.out.println("output: " + output);
+        //System.out.println("output: " + output);
         //Check the output against predetermined actions
         switch(output){
             case 1:
