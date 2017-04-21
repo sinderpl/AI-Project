@@ -1,4 +1,4 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.Nodes;
 
 import java.awt.Color;
 public class Node {

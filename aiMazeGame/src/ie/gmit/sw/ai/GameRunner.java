@@ -3,6 +3,12 @@ package ie.gmit.sw.ai;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import Sprites.FuzzySprite;
+import Sprites.ItemSprite;
+import Sprites.NeuralSprite;
+import Sprites.Sprite;
+import ie.gmit.sw.ai.Nodes.Node;
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 50;
 	private static final int IMAGE_COUNT = 14;
@@ -11,7 +17,9 @@ public class GameRunner implements KeyListener{
 	private int currentRow;
 	private int currentCol;
 	
-	public GameRunner() throws Exception{
+	public GameRunner(String mazeType) throws Exception{
+		
+		
 		model = new Maze(MAZE_DIMENSION);
     	view = new GameView(model);
     	
@@ -104,7 +112,5 @@ public class GameRunner implements KeyListener{
 		return sprites;
 	}
 	
-	public static void main(String[] args) throws Exception{
-		new GameRunner();
-	}
+	
 }

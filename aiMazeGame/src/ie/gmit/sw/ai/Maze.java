@@ -3,6 +3,11 @@ package ie.gmit.sw.ai;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import Sprites.FuzzySprite;
+import Sprites.NeuralSprite;
+import ie.gmit.sw.ai.Nodes.Node;
+import ie.gmit.sw.ai.Nodes.Player;
+
 //2d char array of nodes
 public class Maze {
 	private Node[][] maze;
@@ -20,7 +25,7 @@ public class Maze {
 		addFeature(3, 0, featureNumber); //3 is a bomb, 0 is a hedge
 		addFeature(4, 0, featureNumber); //4 is a hydrogen bomb, 0 is a hedge
 		placePlayer(5, -1);
-		featureNumber = 6;
+		featureNumber = 2;
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
 		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
 		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
@@ -66,7 +71,7 @@ public class Maze {
 					es.submit(new FuzzySprite(row, col, feature, lock, maze, getPlayer()));
 					maze[row][col].setNodeType(feature);
 				}
-				else if(feature > 10){
+				else if(feature >= 10){
 					es.submit(new NeuralSprite(row, col, feature, lock, maze, getPlayer()));
 					maze[row][col].setNodeType(feature);
 				}

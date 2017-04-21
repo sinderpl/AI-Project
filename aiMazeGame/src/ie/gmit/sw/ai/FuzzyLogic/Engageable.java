@@ -1,4 +1,4 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.FuzzyLogic;
 
 public interface Engageable {
 	

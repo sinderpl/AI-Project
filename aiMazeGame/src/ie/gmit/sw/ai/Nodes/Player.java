@@ -1,4 +1,4 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.Nodes;
 
 public class Player extends Node {
 
