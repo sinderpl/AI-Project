@@ -1,9 +1,7 @@
 package ie.gmit.sw.ai.Nodes;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
 
-import ie.gmit.sw.ai.Traversators.AStarTraversator;
-import ie.gmit.sw.ai.Traversators.Traversator;
+import ie.gmit.sw.ai.Traversators.*;
 
 public class Player extends Node {
 	private Node exit;
@@ -30,11 +28,10 @@ public class Player extends Node {
 		traversator = new AStarTraversator(exit);
 		startTraversator();
 	}
-	
+
 	public List<Node> startTraversator(){
 			traversator.traverse(maze, maze[getRow()][getCol()]);
 			playerPath = traversator.getPath();	
-			//System.out.println(playerPath);
 			return playerPath;
 	}
 
@@ -72,11 +69,11 @@ public class Player extends Node {
 
 	public double getWeapon() {
 		if(isSword())
-			return 3.0;
+			return 30.0;
 		if(isBomb())
-			return 6.0;
+			return 60.0;
 		if(isHbomb())
-			return 9.0;
+			return 90.0;
 		return 0;
 	}
 
@@ -87,9 +84,4 @@ public class Player extends Node {
 	public void setHealth(double health) {
 		this.health = health;
 	}
-
-
-	
-	
-
 }

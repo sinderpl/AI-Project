@@ -20,7 +20,7 @@ public class FuzzySprite extends Sprite implements Runnable {
 	private boolean canMove;
 	private Player player;
 	private Node nextPosition;
-	private double health;
+	private double anger;
 	Random random = new Random();
 	private int id;
 
@@ -36,7 +36,7 @@ public class FuzzySprite extends Sprite implements Runnable {
 		node.setRow(row);
 		node.setCol(col);
 		node.setNodeType(feature);
-		this.id =counter;
+		this.setId(counter);
 		
 		//Lock variable
 		this.lock = lock;
@@ -47,31 +47,37 @@ public class FuzzySprite extends Sprite implements Runnable {
 		//This determines the Traversator for each spider
 		switch (node.getNodeType()) {
 		case 6:
-			health = 8;
+			anger = 8;//Sets the spider strength
+			
+			//This spider tries to find the player using AStarTraversator
 			traversator = new AStarTraversator(player);
 			break;
 		case 7:
 			//IDA not very good for controlling spiders - too slow
 			//t = new IDAStarTraversator(player);
-			health = 4;
+			anger = 4;//Sets the spider strength
+			
+			//This spider tries to find the player using BasicHillClimbingTraversator
 			traversator= new BasicHillClimbingTraversator(player);
 			break;
 		case 8:
-			health = 2;
+			anger = 2;//Sets the spider strength
+			
+			//This spider tries to find the player using DepthLimitedDFSTraversator
 			traversator = new DepthLimitedDFSTraversator(10, player);
 			break;
 		default:
-			health = random.nextInt(10);
+			//Set a random anger level between 1-10
+			//This spider walks randomly around the maze
+			anger = random.nextInt(10);
 			break;
 		}
 	}
 
 	@Override
 	public void run() {
-		long time = System.currentTimeMillis();
 		while(true){
 			try {
-				
 				//Different sleep time per spider type
 				Thread.sleep(500 * feature/2);
 				//Find the path to take
@@ -80,15 +86,9 @@ public class FuzzySprite extends Sprite implements Runnable {
 				}
 				// Move around the maze if within range
 				if(node.getHeuristic(player) <= 1){
-					System.out.println("player health " + player.getHealth());
-					Engageable e = new Engageable();
-					double newHealth = e.engage(player.getWeapon(), health, player.getHealth()/10);
-					System.out.println("newhalth: " +  newHealth);
-					player.setHealth(Math.round(newHealth));
-					
-					System.out.println("Health after "+player.getHealth());
+					engage();
 				}
-				if(canMove && node.getHeuristic(player) < 10){
+				else if(canMove && node.getHeuristic(player) < 10){
 					roam();     
 				} else {    
 					randomMove();       
@@ -202,7 +202,25 @@ public class FuzzySprite extends Sprite implements Runnable {
 	
 	public void engage(){
 		Engageable e = new Engageable();
-		player.setHealth(e.engage(player.getWeapon(), this.health, player.getHealth()));
+		double newHealth = e.engage(player.getWeapon(), anger, player.getHealth());
+		System.out.println(newHealth);
+		if(newHealth > 0){
+			player.setHealth(newHealth);
+			maze[node.getRow()][node.getCol()] = new Node(node.getRow(),node.getCol(),-1);
+			Thread.currentThread().stop();
+		}
+		else if (newHealth < 1){
+			player.setHealth(newHealth);
+		}
+		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

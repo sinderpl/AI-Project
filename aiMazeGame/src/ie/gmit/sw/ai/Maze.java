@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import ie.gmit.sw.ai.Nodes.Node;
 import ie.gmit.sw.ai.Nodes.Player;
 import ie.gmit.sw.ai.Sprites.FuzzySprite;
 import ie.gmit.sw.ai.Sprites.NeuralSprite;
-import ie.gmit.sw.ai.Sprites.Sprite;
 
 //2d char array of nodes
 public class Maze {
@@ -30,19 +28,27 @@ public class Maze {
 		addFeature(2, 0, featureNumber); //2 is help, 0 is a hedge
 		addFeature(3, 0, featureNumber); //3 is a bomb, 0 is a hedge
 		addFeature(4, 0, featureNumber); //4 is a hydrogen bomb, 0 is a hedge
+		
+		//Place the Player in the maze
 		placePlayer(5, -1);
+		
+		//Place the Door(Goal Node) in the maze
 		placeDoor(14, -1);
 		
-		//Number of each spider
-		featureNumber = 1;
-		//addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
-//		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
-//		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
-//		addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
-//		addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
-//		addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
+		
+		featureNumber = 2;
+		
+		//Fuzzy spiders
+		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
+		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
+		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
+		addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
+		
+		//Neural spiders
+		addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
+		addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
 		addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
-//		addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
+		addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
 	}
 	
 	public void placePlayer(int feature, int replace){
@@ -96,20 +102,14 @@ public class Maze {
 					FuzzySprite sprite = new FuzzySprite(row, col, feature, lock, maze, getPlayer(), counter);
 					sprites.add(sprite);
 					es.execute(sprite);
-					maze[row][col].setNodeType(feature);
 				}
 				else if(feature >= 10){
-					System.out.println("neural sprite");
-					es.submit(new NeuralSprite(row, col, feature, lock, maze, getPlayer(), counter));
-					maze[row][col].setNodeType(feature);
+					es.execute(new NeuralSprite(row, col, feature, lock, maze, getPlayer(), counter));
 				}
-				else{
 					maze[row][col].setNodeType(feature);
-				}
 					counter++;
 			}
 		}
-		
 	}
 	
 	private void buildMaze(){ 
