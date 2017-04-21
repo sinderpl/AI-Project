@@ -109,41 +109,42 @@ public class SpiderCharacter{
 		{ 1, 0 } , {1, 0 } , {1, 0} ,  //Full Health, Sword, proximity interacting, Enemy health all
 		{ 1, 0} , {1, 0} , {1, 0} ,  // Injured,  Sword, proximity interacting, Enemy health all
 		{ 0, 1 } , {0, 1 } , {0, 1} , // Close to death,  Sword, proximity interacting, Enemy health all
-		
 		{ 1, 0 } , {1, 0 } , {8, 1} ,  //Full Health, Sword, proximity interacting, Enemy health all
 		{ 1, 0} , {1, 0} , {1, 0} ,  // Injured,  Sword, proximity interacting, Enemy health all
-		{ 0, 0 } , {0, 0 } , {0, 0} , // Close to death,  Sword, proximity interacting, Enemy health all
-		
-		{ 8, 0 } , {8, 0 } , {8, 0} ,  //Full Health, Sword, proximity interacting, Enemy health all
-		{ 4, 0} , {4, 0} , {4, 0} ,  // Injured,  Sword, proximity interacting, Enemy health all
-		{ 2, 0 } , {2, 0 } , {2, 0} , // Close to death,  Sword, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {0, 1} , // Close to death,  Sword, proximity interacting, Enemy health all
+		{ 1, 0 } , {1, 0 } , {1, 0} ,  //Full Health, Sword, proximity interacting, Enemy health all
+		{ 1, 0} , {1, 0} , {1, 0} ,  // Injured,  Sword, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {2, 1} , // Close to death,  Sword, proximity interacting, Enemy health all
 		
 		
 		
 		//For bomb
-		{ 8, 0 } , {8, 0 } , {8, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
-		{ 4, 0} , {4, 0} , {4, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
-		{ 2, 0 } , {2, 0 } , {2, 0} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+		// The spider will be more cautious
+		{ 1, 0 } , {1, 0 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 0} , {1, 0} , {1, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {0, 1} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+		{ 1, 0 } , {1, 0 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 0} , {1, 0} , {1, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {0, 1} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+		{ 1, 0 } , {1, 0 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 0} , {1, 0} , {1, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {0, 1} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+		
 		
 		
 		//For H bomb
-		{ 8, 0 } , {8, 0 } , {8, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
-		{ 4, 0} , {4, 0} , {4, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
-		{ 2, 0 } , {2, 0 } , {2, 0} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1} , {0, 1} , {0, 1} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {0, 1} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1} , {0, 1} , {0, 1} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {0, 1} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1} , {0, 1} , {0, 1} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {0, 1} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
     			
 		
-            { 1, 0, 0, 0}, { 1, 0, 0, 0 }, { 0, 0, 1, 0 },
-            { 0, 1, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, 
-            { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, { 0, 0, 0, 1 }, 
-            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, 
-            { 1, 0, 0, 0 }, { 0, 0, 1, 0 }, { 0, 1, 0, 0 },
-            { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, { 0, 0, 0, 1 }, 
-            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, 
-            { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 1, 0, 0 }, 
-            { 0, 0, 1, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, 
-            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, 
-            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, 
-            { 1, 0, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 1, 0 }
+		
     };
 
 
