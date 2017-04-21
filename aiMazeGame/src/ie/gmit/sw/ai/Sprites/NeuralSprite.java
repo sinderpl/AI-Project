@@ -139,7 +139,7 @@ public class NeuralSprite extends Sprite implements Runnable{
 				System.out.println("Player health: " + playerHealth);
 				if (health <= 0){
 					node = new Node(row, col, -1);
-					//TODO Destroy spider
+					Thread.currentThread().stop();
 				}
 			}
 			else if (action == 2) {
@@ -148,7 +148,7 @@ public class NeuralSprite extends Sprite implements Runnable{
 			}
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		counter = 30;
@@ -162,13 +162,13 @@ public class NeuralSprite extends Sprite implements Runnable{
 		while(true){
 			try {
 				//Different sleep time per spider type
-				Thread.sleep(400);//500 * feature/2);
+				Thread.sleep(500 * feature/2);
 				//Find the path to take
 				if(feature != 13){
 					traverse(node.getRow(), node.getCol(), traversator);
 				}
 				// Move around the maze if within range
-				if(node.getHeuristic(player) < 2){
+				if(node.getHeuristic(player) < 5){
 					engageNN();
 				}
 				else if(canMove && node.getHeuristic(player) < 10  ){
