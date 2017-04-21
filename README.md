@@ -73,4 +73,38 @@ We have managed to implement a lot of the technologies specified in the Marking 
   ```
   The spider only has two choices implemented at the moment, it can either run away or engage the player in a fight depending on these variables.
    
+   3. We have implemented both Uninformed and Heuristic searching algorithms in the spider's random movement techniques.(**FuzzySprite.java** **NeuralSprite.java**). Some of these are highly innacurate but the AStarTraversator works perfectly for both roaming and searching for the player.
+   ```
+   traversator = new AStarTraversator(player);
+   ```
+   We have started work on creating a help path for the player that would highlight the shortest route to the exit but it made the game extremely slow and we did not have time to fix it.
    
+ 4. The spiders are fully threaded using ExecutorService and run indepently of each other using the execute method in Executor service to start the spiders threaded run methods. (**Maze.java** **FuzzySpider.java** **NeuralSpider.java**)
+   ```
+   @Override
+	public void run() {
+		while(true){
+			try {
+				//Different sleep time per spider type
+				Thread.sleep(500 * feature/2);
+				//Find the path to take
+				if(feature != 9){
+					traverse(node.getRow(), node.getCol(), traversator);
+				}
+				// Move around the maze if within range
+				if(node.getHeuristic(player) <= 1){
+					engage();
+				}
+				else if(canMove && node.getHeuristic(player) < 10){
+					roam();     
+				} else {    
+					randomMove();       
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		
+		}
+	}
+     ```
+ 
