@@ -91,14 +91,10 @@ public class SpiderCharacter{
     	//these can all be the same, the spider will attack no matter what as long as you don't have a weapon yet.
 		{ 1, 0} , {1, 0 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
 		{ 1, 0} , {1, 0} , {1, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
-		{ 1, 0 } , {1, 0 } , {1, 0} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
-		
-			
+		{ 1, 0 } , {1, 0 } , {1, 0} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all		
 		{ 1, 0 } , {1, 0 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
 		{ 1, 0} , {1, 0} , {1, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
 		{ 1, 0 } , {1, 0 } , {1, 0} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
-		
-		
 		{ 1, 0 } , {1, 0 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
 		{ 1, 0} , {1, 0} , {1, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
 		{ 1, 0 } , {1, 0 } , {1, 0} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
@@ -159,7 +155,7 @@ public class SpiderCharacter{
         }
 
         int output = (Utils.getMaxIndex(result) + 1);
-        
+        System.out.println("output: " + output);
         //Check the output against predetermined actions
         switch(output){
             case 1:

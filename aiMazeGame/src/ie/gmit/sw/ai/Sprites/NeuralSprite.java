@@ -24,7 +24,7 @@ public class NeuralSprite extends Sprite implements Runnable{
 	private Player player;
 	private Node nextPosition;
 	private double strength;
-	private double health;
+	private double health = 40;
 	
 	public NeuralSprite(String name, String... images) throws Exception {
 		super(name, images);
@@ -110,23 +110,15 @@ public class NeuralSprite extends Sprite implements Runnable{
 			
 			
 			int action = enn.action(spiderHealth, enemyWeapon, proximity, playerHealth);
-			if (action == 2){
+			System.out.println("action: " + action);
+			System.out.println("data set: " + spiderHealth +" " +  enemyWeapon  +" " +   proximity +" " +   playerHealth);
+			if (action == 1){
 				System.out.println("action is attack");
 				//EngageFuzzy ef = new EngageFuzzy();
 				//player.setHealth(ef.fight(player.getSwordStrength(), player.getHealth(), this.strength));
 			}
-			else if (action == 1) {
-				System.out.println("action is panic");
-			}
-			else if (action == 3){
-				System.out.println("hide");
-				maze[this.row][this.col].setNodeType('\u0020');
-				maze[row + 1][row + 1].setNodeType('\u0037');
-				this.row = row + 1;
-				this.col = row + 1;
-			}
-			else if (action == 4){
-				System.out.println("run away");
+			else if (action == 2) {
+				System.out.println("action is run");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
