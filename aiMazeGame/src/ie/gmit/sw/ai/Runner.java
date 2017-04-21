@@ -1,4 +1,4 @@
-package ie.gmit.sw.ai.fuzzyLogic;
+package ie.gmit.sw.ai;
 
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;

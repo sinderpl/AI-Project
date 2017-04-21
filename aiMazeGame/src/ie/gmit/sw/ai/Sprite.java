@@ -3,10 +3,12 @@ package ie.gmit.sw.ai;
 import javax.imageio.*;
 import java.awt.image.*;
 
-public class Sprite {
+public abstract class Sprite implements Engageable{
+	public Traversator traversator;
 	private String name; //The name of this sprite
 	private BufferedImage[] frames; //The set of image frames to animate
  	private int index = 0; //Initial starting index in array
+	private char feature;
  	
 	public Sprite(String name, String... images) throws Exception{
 		this.name = name;
@@ -16,6 +18,9 @@ public class Sprite {
 		for (int i = 0; i < images.length; i++){
 			frames[i] = ImageIO.read(new java.io.File(images[i])); //Read in each image as a BufferedImage
 		}
+	}
+	
+	public Sprite() throws Exception{
 	}
 	
 	public BufferedImage getNext(){ //Returns the next image frame
@@ -31,4 +36,5 @@ public class Sprite {
 	public String getName(){
 		return this.name;
 	}
+	
 }

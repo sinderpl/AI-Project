@@ -1,9 +1,4 @@
-package ie.gmit.sw.ai.traversers.heuristic;
-
-import ie.gmit.sw.ai.maze.*;
-import ie.gmit.sw.ai.maze.Nodes.Node;
-import ie.gmit.sw.ai.traversers.Traversator;
-import ie.gmit.sw.ai.traversers.TraversatorStats;
+package ie.gmit.sw.ai;
 
 import java.util.*;
 public class AStarTraversator implements Traversator{
@@ -33,7 +28,7 @@ public class AStarTraversator implements Traversator{
 			
 			if (node.isGoalNode()){
 		        time = System.currentTimeMillis() - time; //Stop the clock
-		        TraversatorStats.printStats(node, time, visitCount);
+		        //TraversatorStats.printStats(node, time, visitCount);
 				break;
 			}
 			

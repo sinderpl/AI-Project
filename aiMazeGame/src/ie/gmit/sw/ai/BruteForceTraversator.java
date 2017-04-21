@@ -1,13 +1,9 @@
-package ie.gmit.sw.ai.traversers.uninformed;
-
-import ie.gmit.sw.ai.maze.*;
-import ie.gmit.sw.ai.maze.Nodes.Node;
-import ie.gmit.sw.ai.traversers.Traversator;
-import ie.gmit.sw.ai.traversers.TraversatorStats;
+package ie.gmit.sw.ai;
 
 import java.util.*;
 public class BruteForceTraversator implements Traversator{
 	private boolean dfs = false;
+	private LinkedList<Node> path;
 	
 	public BruteForceTraversator(boolean depthFirst){
 		this.dfs = depthFirst;
@@ -16,7 +12,7 @@ public class BruteForceTraversator implements Traversator{
 	public void traverse(Node[][] maze, Node node) {
         long time = System.currentTimeMillis();
     	int visitCount = 0;
-    	
+    	path = new LinkedList<>();
 		Deque<Node> queue = new LinkedList<Node>();
 		queue.offer(node);
 		
@@ -27,7 +23,7 @@ public class BruteForceTraversator implements Traversator{
 			
 			if (node.isGoalNode()){
 		        time = System.currentTimeMillis() - time; //Stop the clock
-		        TraversatorStats.printStats(node, time, visitCount);
+		        //TraversatorStats.printStats(node, time, visitCount);
 				break;
 			}
 			
@@ -37,7 +33,7 @@ public class BruteForceTraversator implements Traversator{
 				e.printStackTrace();
 			}
 			
-			Node[] children = node.children(maze);
+			Node[] children = node.adjacentNodes(maze);
 			for (int i = 0; i < children.length; i++) {
 				if (children[i] != null && !children[i].isVisited()){
 					children[i].setParent(node);
@@ -46,14 +42,16 @@ public class BruteForceTraversator implements Traversator{
 					}else{
 						queue.addLast(children[i]);
 					}
-				}									
+					
+				}
+				path.addAll(queue);
 			}			
 		}
 	}
 
 	@Override
 	public Node getNextNode() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return path.getFirst();
 	}
 }

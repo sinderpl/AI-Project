@@ -1,6 +1,4 @@
-package ie.gmit.sw.ai.nn;
-
-import ie.gmit.sw.ai.fuzzyLogic.Runner;
+package ie.gmit.sw.ai;
 
 public interface Engageable {
 	
