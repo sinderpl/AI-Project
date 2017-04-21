@@ -64,12 +64,13 @@ public class GameRunner implements KeyListener{
 	private void placePlayer(){   	
     	currentRow = (int) (MAZE_DIMENSION * Math.random());
     	currentCol = (int) (MAZE_DIMENSION * Math.random());
-    	model.set(currentRow, currentCol, new Node(currentRow, currentCol, 5)); //A Spartan warrior is at index 5
+    	//model.set(currentRow, currentCol, new Node(currentRow, currentCol, 5)); //A Spartan warrior is at index 5
     	updateView(); 		
 	}
 
 	
 	private void updateView(){
+		view.setPlayer(model.getPlayer());
 		currentRow = model.getPlayer().getRow();
     	currentCol = model.getPlayer().getCol();
 		view.setCurrentRow(currentRow);
@@ -90,7 +91,6 @@ public class GameRunner implements KeyListener{
         }else{
         	return;
         }
-        
         updateView();       
     }
     public void keyReleased(KeyEvent e) {} //Ignore

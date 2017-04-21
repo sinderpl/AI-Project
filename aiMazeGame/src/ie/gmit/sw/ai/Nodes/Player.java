@@ -1,5 +1,6 @@
 package ie.gmit.sw.ai.Nodes;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
 
 import ie.gmit.sw.ai.Traversators.AStarTraversator;
 import ie.gmit.sw.ai.Traversators.Traversator;
@@ -27,13 +28,11 @@ public class Player extends Node {
 		startTraversator();
 	}
 	
-	public void startTraversator(){
-		//while(true){
-			System.out.println("player path");
+	public List<Node> startTraversator(){
 			traversator.traverse(maze, maze[getRow()][getCol()]);
-			playerPath = traversator.getPath();		
-			System.out.println(playerPath);
-		//}
+			playerPath = traversator.getPath();	
+			//System.out.println(playerPath);
+			return playerPath;
 	}
 	
 	
