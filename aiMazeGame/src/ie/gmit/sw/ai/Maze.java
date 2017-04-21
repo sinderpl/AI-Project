@@ -30,7 +30,7 @@ public class Maze {
 		placeDoor(14, -1);
 		
 		//Number of each spider
-		featureNumber = 2;
+		featureNumber = 6;
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
 		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
 		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
