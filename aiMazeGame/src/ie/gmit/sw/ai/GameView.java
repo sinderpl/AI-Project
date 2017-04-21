@@ -2,8 +2,12 @@ package ie.gmit.sw.ai;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
+
 import javax.swing.*;
 
+import ie.gmit.sw.ai.Nodes.Node;
+import ie.gmit.sw.ai.Nodes.Player;
 import ie.gmit.sw.ai.Sprites.Sprite;
 public class GameView extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
@@ -20,6 +24,7 @@ public class GameView extends JPanel implements ActionListener{
 	private int imageIndex = -1;
 	private int offset = 48; //The number 0 is ASCII 48.
 	private Color[] reds = {new Color(255, 0, 0)}; //Animate enemy "dots" to make them easier to see
+	private Player player;
 	
 	public GameView(Maze maze) throws Exception{
 		this.maze = maze;
@@ -48,11 +53,16 @@ public class GameView extends JPanel implements ActionListener{
 			currentCol = col;
 		}
 	}
+	
+	public void setPlayer(Player player){
+		this.player = player;
+	}
 
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-              
+        
+        
         cellspan = zoomOut ? maze.size() : 5;         
         final int size = DEFAULT_VIEW_SIZE/cellspan;
         g2.drawRect(0, 0, GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
@@ -68,7 +78,7 @@ public class GameView extends JPanel implements ActionListener{
         			i = maze.get(row, col).getNodeType();
         			if (i >= 5){
 	        			if (row == currentRow && col == currentCol){
-	        				g2.setColor(Color.YELLOW);
+	        				g2.setColor(Color.GREEN);
 	        			}else{
 	        				g2.setColor(reds[0]);
 	        			}
@@ -78,13 +88,33 @@ public class GameView extends JPanel implements ActionListener{
         			i = maze.get(currentRow - cellpadding + row, currentCol - cellpadding + col).getNodeType();
         		}
         		
+        		
+
+        		
         		imageIndex = i;
         		if (imageIndex < 0){
         			g2.setColor(Color.LIGHT_GRAY);//Empty cell
-        			g2.fillRect(x1, y1, size, size);   			
-        		}else{
+        			g2.fillRect(x1, y1, size, size);
+        		}
+        		else{
         			g2.drawImage(sprites[imageIndex].getNext(), x1, y1, null);
         		}
+        		/**
+        		//if(player != null){
+        		
+        		List<Node> playerPath = player.startTraversator();
+                
+                playerPath.remove(playerPath.size()-1);
+                playerPath.remove(0);
+        		
+        		for(Node n: playerPath){
+        			if (n.getNodeType() == -1 && n.getRow() == row && n.getCol() == col){
+        				//System.out.println(n);
+        				g2.setColor(Color.yellow);//Empty cell
+            			g2.fillRect(x1, y1, size, size);
+        			}
+        			}
+        		//}**/
         	}
         }
 	}

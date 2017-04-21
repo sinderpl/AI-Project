@@ -1,5 +1,6 @@
 package ie.gmit.sw.ai.Nodes;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
 
 import ie.gmit.sw.ai.Traversators.AStarTraversator;
 import ie.gmit.sw.ai.Traversators.Traversator;
@@ -29,12 +30,13 @@ public class Player extends Node {
 		traversator = new AStarTraversator(exit);
 		startTraversator();
 	}
-	
-	public void startTraversator(){
-		//while(true){
+
+	public List<Node> startTraversator(){
 			traversator.traverse(maze, maze[getRow()][getCol()]);
-			playerPath = traversator.getPath();		
-		//}
+			playerPath = traversator.getPath();	
+			//System.out.println(playerPath);
+			return playerPath;
+
 	}
 
 	public boolean isSword() {
