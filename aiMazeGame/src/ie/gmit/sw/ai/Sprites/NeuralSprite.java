@@ -3,6 +3,7 @@ package ie.gmit.sw.ai.Sprites;
 import java.util.ArrayList;
 import java.util.Random;
 import ie.gmit.sw.ai.nn.EngageNN;
+import ie.gmit.sw.ai.nn.SpiderCharacter;
 import ie.gmit.sw.ai.Nodes.Node;
 import ie.gmit.sw.ai.Nodes.Player;
 import ie.gmit.sw.ai.Traversators.AStarTraversator;
@@ -23,6 +24,7 @@ public class NeuralSprite extends Sprite implements Runnable{
 	private Player player;
 	private Node nextPosition;
 	private double strength;
+	private double health;
 	
 	public NeuralSprite(String name, String... images) throws Exception {
 		super(name, images);
@@ -62,18 +64,52 @@ public class NeuralSprite extends Sprite implements Runnable{
 	}
 	
 	public void engageNN(){
-		double healthy = 0;
-		EngageNN enn = new EngageNN();
+		//double healthy = 0;
+		SpiderCharacter enn = new SpiderCharacter();
 		try {
-			if(player.getHealth() >= 100)
-				healthy = 2;
-			else if (player.getHealth() >= 40)
-				healthy = 1;
-			else
-				healthy = 0;
-			int bombChoice = 1;
 			
-			int action = enn.action(healthy, 1.0 , bombChoice, 1.0);
+			//SpiderHealthLogic
+			//Spider health  (8 = Full Health, 4 = Injured , 2 = Close to death)
+			double spiderHealth;
+			if ( health >= 80.0)
+				spiderHealth = 8;
+			else if( health <= 50 && health > 20)
+				spiderHealth = 4;
+			else
+				spiderHealth = 2;
+			
+			// EnemyWeapon
+			// EnemyWeapon	(3 = Hydrogen Bomb ,2 = Bomb, 1 = Sword , 0 = None)
+			double enemyWeapon;
+			if(player.isHbomb()) //For H Bomb
+				enemyWeapon = 3;
+			else if(player.isBomb()) //For bomb
+				enemyWeapon = 2;
+			else if(player.isSword()) //For sword
+				enemyWeapon = 1;
+			else
+				enemyWeapon = 0; //For no weapon
+			
+			
+			//Proximity logic (not applicable for now, will be default)
+			//Proximity ( 8 = Far Away, 4 = Nearby,  2 = Interacting)
+			double proximity = 2;
+			
+			
+			//	EnemyHealthLogic
+			//	EnemyHealth (8  = Full Health, 4 = Half Health 2 = Close to death)
+			double playerHealth;
+			double currentHealth = player.getHealth();
+			if ( currentHealth >= 80.0)
+				playerHealth = 8;
+			else if( currentHealth <= 50 && currentHealth > 20)
+				playerHealth = 4;
+			else
+				playerHealth = 2;
+			
+			
+			
+			int action = enn.action(spiderHealth, enemyWeapon, proximity, playerHealth);
 			if (action == 2){
 				System.out.println("action is attack");
 				//EngageFuzzy ef = new EngageFuzzy();

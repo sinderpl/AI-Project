@@ -9,90 +9,147 @@ public class SpiderCharacter{
 
     public SpiderCharacter(){
 
-        nn = new NeuralNetwork(Activator.ActivationFunction.Sigmoid, 2, 1, 2);
+        nn = new NeuralNetwork(Activator.ActivationFunction.Sigmoid, 4, 1, 2);
         Trainator trainer = new BackpropagationTrainer(nn);
         trainer.train(data, expected, 0.2, 3000000);
     }
 
     /*
-        1 = Health (1 = Healthy, 0.5 = Minor Injuries, 0 = Serious Injuries)
-        2 = Has Sword (1 = Yes, 0 = No)
-        3 = Has Bomb (1 = Yes, 0 = No)
-        4 = Enemies Status (0 = One, 0.5 = Two, 1 = Three or More)
-     */
-
-    /*
      * 1 = Spider health  (8 = Full Health, 4 = Injured , 2 = Close to death)
-     * 2 = EnemyWeapon	(0 = None, 1 = Sword , 2 = Bomb, 3 = Hydrogen Bomb)
-     * 3 = Proximity ( 8 = Far Away, 4 = Close, )
+     * 2 = EnemyWeapon	(3 = Hydrogen Bomb ,2 = Bomb, 1 = Sword , 0 = None)
+     * 3 = Proximity ( 8 = Far Away, 4 = Nearby,  2 = Interacting)
+     * 4 = EnemyHealth (8  = Full Health, 4 = Half Health 2 = Close to death)
      */
     private double[][] data =
 
-    { //Health, Sword, Bomb, Enemies
+    { 	
+    		//Check all health
     		
-    		{ 8, 0 }, { 8, 1}, { 8, 2 }, { 8, 3 }, // Full health, EnemyWeapon types added
-    		{ 0.5, 0 }, { 0.5, 1 }, { 0.5, 2 }, { 0.5, 3 }, // Injured, EnemyWeapon types added
-    		{ 0.5, 0 }, { 0.5, 1 }, { 0.5, 2 }, { 0.5, 3 } // Close to death, EnemyWeapon types added
+    		//For No weapon
+    		{ 8, 0, 2, 8 } , {8, 0, 2, 4 } , {8, 0, 2, 2} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+    		{ 4, 0, 2, 8 } , {4, 0, 2, 4 } , {4, 0, 2, 2} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+    		{ 2, 0, 2, 8 } , {2, 0, 2, 4 } , {2, 0, 2, 2} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+    		
+    		{ 8, 0, 4, 2 } , {8, 0, 4, 4 } , {8, 0, 4, 8} ,  //Full Health, no enemy weapons, proximity all, Enemy health all
+    		{ 4, 0, 4, 2 } , {4, 0, 4, 4 } , {4, 0, 4, 8} ,  // Injured,  no enemy weapons, proximity all, Enemy health all
+    		{ 2, 0, 4, 2 } , {2, 0, 4, 4 } , {2, 0, 4, 8} , // Close to death,  no enemy weapons, proximity all, Enemy health all
+    		
+    		{ 8, 0, 8, 2 } , {8, 0, 8, 4 } , {8, 0, 8, 8} ,  //Full Health, no enemy weapons, Far Away, Enemy health all
+    		{ 4, 0, 8, 2 } , {4, 0, 8, 4 } , {4, 0, 8, 8} ,  // Injured,  no enemy weapons, Far Away, Enemy health all
+    		{ 2, 0, 8, 2 } , {2, 0, 8, 4 } , {2, 0, 8, 8} , // Close to death,  no enemy weapons, Far Away, Enemy health all
+    		
+    		
+    		//for Sword
+    		{ 8, 1, 2, 8 } , {8, 1, 2, 4 } , {8, 1, 2, 2} ,  //Full Health, Sword, proximity interacting, Enemy health all
+    		{ 4, 1, 2, 8 } , {4, 1, 2, 4 } , {4, 1, 2, 2} ,  // Injured,  Sword, proximity interacting, Enemy health all
+    		{ 2, 1, 2, 8 } , {2, 1, 2, 4 } , {2, 1, 2, 2} , // Close to death,  Sword, proximity interacting, Enemy health all
+    		
+    		{ 8, 1, 4, 2 } , {8, 1, 4, 4 } , {8, 1, 4, 8} ,  //Full Health, Sword, proximity all, Enemy health all
+    		{ 4, 1, 4, 2 } , {4, 1, 4, 4 } , {4, 1, 4, 8} ,  // Injured,  Sword, proximity all, Enemy health all
+    		{ 2, 1, 4, 2 } , {2, 1, 4, 4 } , {2, 1, 4, 8} , // Close to death,  Sword, proximity all, Enemy health all
+    		
+    		{ 8, 1, 8, 2 } , {8, 1, 8, 4 } , {8, 1, 8, 8} ,  //Full Health, Sword, Far Away, Enemy health all
+    		{ 4, 1, 8, 2 } , {4, 1, 8, 4 } , {4, 1, 8, 8} ,  // Injured,  Sword, Far Away, Enemy health all
+    		{ 2, 1, 8, 2 } , {2, 1, 8, 4 } , {2, 1, 8, 8} , // Close to death,  Sword, Far Away, Enemy health all
+    		
+    		
+    		//for Bomb
+    		{ 8, 2, 2, 8 } , {8, 2, 2, 4 } , {8, 2, 2, 2} ,  //Full Health, Bomb, proximity interacting, Enemy health all
+    		{ 4, 2, 2, 8 } , {4, 2, 2, 4 } , {4, 2, 2, 2} ,  // Injured,  Bomb, proximity interacting, Enemy health all
+    		{ 2, 2, 2, 8 } , {2, 2, 2, 4 } , {2, 2, 2, 2} , // Close to death,  Bomb, proximity interacting, Enemy health all
+    		
+    		{ 8, 2, 4, 2 } , {8, 2, 4, 4 } , {8, 2, 4, 8} ,  //Full Health, Bomb, proximity all, Enemy health all
+    		{ 4, 2, 4, 2 } , {4, 2, 4, 4 } , {4, 2, 4, 8} ,  // Injured,  Bomb, proximity all, Enemy health all
+    		{ 2, 2, 4, 2 } , {2, 2, 4, 4 } , {2, 2, 4, 8} , // Close to death,  Bomb, proximity all, Enemy health all
+    		
+    		{ 8, 2, 8, 2 } , {8, 2, 8, 4 } , {8, 2, 8, 8} ,  //Full Health, Bomb, Far Away, Enemy health all
+    		{ 4, 2, 8, 2 } , {4, 2, 8, 4 } , {4, 2, 8, 8} ,  // Injured,  Bomb, Far Away, Enemy health all
+    		{ 2, 2, 8, 2 } , {2, 2, 8, 4 } , {2, 2, 8, 8} , // Close to death,  Bomb, Far Away, Enemy health all
+    		
+    		//for H Bomb
+    		{ 8, 3, 2, 8 } , {8, 1, 2, 4 } , {8, 1, 2, 2} ,  //Full Health, H Bomb, proximity interacting, Enemy health all
+    		{ 4, 3, 2, 8 } , {4, 1, 2, 4 } , {4, 1, 2, 2} ,  // Injured,  H Bomb, proximity interacting, Enemy health all
+    		{ 2, 3, 2, 8 } , {2, 1, 2, 4 } , {2, 1, 2, 2} , // Close to death,  H Bomb, proximity interacting, Enemy health all
+    		
+    		{ 8, 3, 4, 2 } , {8, 3, 4, 4 } , {8, 3, 4, 8} ,  //Full Health, H Bomb, proximity all, Enemy health all
+    		{ 4, 3, 4, 2 } , {4, 3, 4, 4 } , {4, 3, 4, 8} ,  // Injured,  H Bomb, proximity all, Enemy health all
+    		{ 2, 3, 4, 2 } , {2, 3, 4, 4 } , {2, 3, 4, 8} , // Close to death,  H Bomb, proximity all, Enemy health all
+    		
+    		{ 8, 3, 8, 2 } , {8, 3, 8, 4 } , {8, 3, 8, 8} ,  //Full Health, H Bomb, Far Away, Enemy health all
+    		{ 4, 3, 8, 2 } , {4, 3, 8, 4 } , {4, 3, 8, 8} ,  // Injured,  H Bomb, Far Away, Enemy health all
+    		{ 2, 3, 8, 2 } , {2, 3, 8, 4 } , {2, 3, 8, 8} , // Close to death,  H Bomb, Far Away, Enemy health all
+    		
     	
-    		/**
-	    	{ 1, 0, 0, 0 }, { 1, 0, 0, 0.5 }, { 1, 0, 0, 1 }, // full health, enemies covered
-	        { 0.5, 0, 0, 0 }, { 0.5, 0, 0, 0.5 }, { 0.5, 0, 0, 1 }, // minior injuries, enemies covered
-	        { 0, 0, 0, 0 }, { 0, 0, 0, 0.5 }, { 0, 0, 0, 1 }, // serious injuries, enemies covered
-    		
-    		
-            // No Sword, No Bomb
-            { 1, 0, 0, 0 }, { 1, 0, 0, 0.5 }, { 1, 0, 0, 1 }, // full health, enemies covered
-            { 0.5, 0, 0, 0 }, { 0.5, 0, 0, 0.5 }, { 0.5, 0, 0, 1 }, // minior injuries, enemies covered
-            { 0, 0, 0, 0 }, { 0, 0, 0, 0.5 }, { 0, 0, 0, 1 }, // serious injuries, enemies covered
-
-            // Sword, No Bomb
-            { 1, 1, 0, 0 }, { 1, 1, 0, 0.5 }, { 1, 1, 0, 1 }, // full health, enemies covered
-            { 0.5, 1, 0, 0 }, { 0.5, 1, 0, 0.5 }, { 0.5, 1, 0, 1 }, // minior injuries, enemies covered
-            { 0, 1, 0, 0 }, { 0, 1, 0, 0.5 }, { 0, 1, 0, 1 }, // serious injuries, enemies covered
-
-            // No Sword, Bomb
-            { 1, 0, 1, 0 }, { 1, 0, 1, 0.5 }, { 1, 0, 1, 1 }, // full health, enemies covered
-            { 0.5, 0, 1, 0 }, { 0.5, 0, 1, 0.5 }, { 0.5, 0, 1, 1 }, // minior injuries, enemies covered
-            { 0, 0, 1, 0 }, { 0, 0, 1, 0.5 }, { 0, 0, 1, 1 }, // serious injuries, enemies covered
-
-            // Sword, Bomb
-            { 1, 1, 1, 0 }, { 1, 1, 1, 0.5 }, { 1, 1, 1, 1 }, // full health, enemies covered
-            { 0.5, 1, 1, 0 }, { 0.5, 1, 1, 0.5 }, { 0.5, 1, 1, 1 }, // minior injuries, enemies covered
-            { 0, 1, 1, 0 }, { 0, 1, 1, 0.5 }, { 0, 1, 1, 1 } // serious injuries, enemies covered
-    	**/
     
     };
 
     
     private double[][] expected =
 
-    { // Attack, Run
-
-            // No Sword, No Bomb
-            { 1, 0, 0, 0}, { 1, 0, 0, 0 }, { 0, 0, 1, 0 }, // full health, enemies covered
-            { 0, 1, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, // minior injuries, enemies covered
-            { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, { 0, 0, 0, 1 }, // serious injuries, enemies covered
-
-            // Sword, No Bomb
-            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, // full health, enemies covered
-            { 1, 0, 0, 0 }, { 0, 0, 1, 0 }, { 0, 1, 0, 0 }, // minior injuries, enemies covered
-            { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, { 0, 0, 0, 1 }, // serious injuries, enemies covered
-
-            // No Sword, Bomb
-            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, // full health, enemies covered
-            { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 1, 0, 0 }, // minior injuries, enemies covered
-            { 0, 0, 1, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, // serious injuries, enemies covered
-
-            // Sword, Bomb
-            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, // full health, enemies covered
-            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, // minior injuries, enemies covered
-            { 1, 0, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 1, 0 } // serious injuries, enemies covered
+    {
+    	//For No weapon
+    	//these can all be the same, the spider will attack no matter what as long as you don't have a weapon yet.
+		{ 1, 0} , {1, 0 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+		{ 1, 0} , {1, 0} , {1, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+		{ 1, 0 } , {1, 0 } , {1, 0} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+		
+			
+		{ 1, 0 } , {1, 0 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+		{ 1, 0} , {1, 0} , {1, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+		{ 1, 0 } , {1, 0 } , {1, 0} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+		
+		
+		{ 1, 0 } , {1, 0 } , {1, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+		{ 1, 0} , {1, 0} , {1, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+		{ 1, 0 } , {1, 0 } , {1, 0} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+	
+	
+		//For Sword
+		//The spider will attack as long as he is not close to death
+		{ 1, 0 } , {1, 0 } , {1, 0} ,  //Full Health, Sword, proximity interacting, Enemy health all
+		{ 1, 0} , {1, 0} , {1, 0} ,  // Injured,  Sword, proximity interacting, Enemy health all
+		{ 0, 1 } , {0, 1 } , {0, 1} , // Close to death,  Sword, proximity interacting, Enemy health all
+		
+		{ 1, 0 } , {1, 0 } , {8, 1} ,  //Full Health, Sword, proximity interacting, Enemy health all
+		{ 1, 0} , {1, 0} , {1, 0} ,  // Injured,  Sword, proximity interacting, Enemy health all
+		{ 0, 0 } , {0, 0 } , {0, 0} , // Close to death,  Sword, proximity interacting, Enemy health all
+		
+		{ 8, 0 } , {8, 0 } , {8, 0} ,  //Full Health, Sword, proximity interacting, Enemy health all
+		{ 4, 0} , {4, 0} , {4, 0} ,  // Injured,  Sword, proximity interacting, Enemy health all
+		{ 2, 0 } , {2, 0 } , {2, 0} , // Close to death,  Sword, proximity interacting, Enemy health all
+		
+		
+		
+		//For bomb
+		{ 8, 0 } , {8, 0 } , {8, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+		{ 4, 0} , {4, 0} , {4, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+		{ 2, 0 } , {2, 0 } , {2, 0} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+		
+		
+		//For H bomb
+		{ 8, 0 } , {8, 0 } , {8, 0} ,  //Full Health, no enemy weapons, proximity interacting, Enemy health all
+		{ 4, 0} , {4, 0} , {4, 0} ,  // Injured,  no enemy weapons, proximity interacting, Enemy health all
+		{ 2, 0 } , {2, 0 } , {2, 0} , // Close to death,  no enemy weapons, proximity interacting, Enemy health all
+    			
+		
+            { 1, 0, 0, 0}, { 1, 0, 0, 0 }, { 0, 0, 1, 0 },
+            { 0, 1, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, 
+            { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, { 0, 0, 0, 1 }, 
+            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, 
+            { 1, 0, 0, 0 }, { 0, 0, 1, 0 }, { 0, 1, 0, 0 },
+            { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, { 0, 0, 0, 1 }, 
+            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, 
+            { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 1, 0, 0 }, 
+            { 0, 0, 1, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 }, 
+            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, 
+            { 1, 0, 0, 0 }, { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, 
+            { 1, 0, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 1, 0 }
     };
 
 
-    public int action(double health, double enemyWeapon, double proximity) throws Exception{
+    public int action(double health, double enemyWeapon, double proximity, double enemyHealth) throws Exception{
 
-        double[] params = {health, enemyWeapon};
+        double[] params = {health, enemyWeapon, proximity, enemyHealth};
 
         double[] result = nn.process(params);
 
@@ -112,7 +169,7 @@ public class SpiderCharacter{
                 return 2;
             default:
                 // Roam the maze
-                return 3;
+                return 2;
         } 
 
     } 
