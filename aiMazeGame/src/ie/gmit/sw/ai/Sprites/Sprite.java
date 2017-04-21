@@ -7,7 +7,7 @@ import ie.gmit.sw.ai.Traversators.Traversator;
 
 import java.awt.image.*;
 
-public abstract class Sprite implements Engageable{
+public abstract class Sprite{
 	public Traversator traversator;
 	private String name; //The name of this sprite
 	private BufferedImage[] frames; //The set of image frames to animate

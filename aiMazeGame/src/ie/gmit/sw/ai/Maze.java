@@ -1,5 +1,7 @@
 package ie.gmit.sw.ai;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -7,6 +9,7 @@ import ie.gmit.sw.ai.Nodes.Node;
 import ie.gmit.sw.ai.Nodes.Player;
 import ie.gmit.sw.ai.Sprites.FuzzySprite;
 import ie.gmit.sw.ai.Sprites.NeuralSprite;
+import ie.gmit.sw.ai.Sprites.Sprite;
 
 //2d char array of nodes
 public class Maze {
@@ -15,6 +18,7 @@ public class Maze {
 	private ExecutorService es =Executors.newCachedThreadPool();
 	private Player player;
 	private Node door;
+	private List<FuzzySprite> sprites = new ArrayList<>();	
 	
 	public Maze(int dimension) throws Exception{
 		maze = new Node[dimension][dimension];
@@ -30,15 +34,15 @@ public class Maze {
 		placeDoor(14, -1);
 		
 		//Number of each spider
-		featureNumber = 6;
+		featureNumber = 1;
 		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
-		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
-		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
-		addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
-		addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
-		addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
-		addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
-		addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
+//		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
+//		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
+//		addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
+//		addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
+//		addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
+//		addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
+//		addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
 	}
 	
 	public void placePlayer(int feature, int replace){
@@ -89,11 +93,13 @@ public class Maze {
 				
 				if(feature > 5 && feature < 10){
 					//Creates a new thread for each spider
-					es.submit(new FuzzySprite(row, col, feature, lock, maze, getPlayer()));
+					FuzzySprite sprite = new FuzzySprite(row, col, feature, lock, maze, getPlayer(), counter);
+					sprites.add(sprite);
+					es.execute(sprite);
 					maze[row][col].setNodeType(feature);
 				}
 				else if(feature >= 10){
-					es.submit(new NeuralSprite(row, col, feature, lock, maze, getPlayer()));
+					es.submit(new NeuralSprite(row, col, feature, lock, maze, getPlayer(), counter));
 					maze[row][col].setNodeType(feature);
 				}
 				else{
@@ -159,5 +165,14 @@ public class Maze {
 	}
 	public Player getPlayer(){
 		return this.player;
+	}
+
+	public FuzzySprite getSpriteId(int row, int col){
+		for(FuzzySprite s : sprites ){
+			if (maze[row][col].getRow() == row && maze[row][col].getCol() == col){
+				return s;
+			}
+		}
+		return null;
 	}
 }

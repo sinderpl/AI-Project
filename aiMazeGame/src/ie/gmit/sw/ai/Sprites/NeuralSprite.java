@@ -26,7 +26,7 @@ public class NeuralSprite extends Sprite implements Runnable{
 	public NeuralSprite(String name, String... images) throws Exception {
 		super(name, images);
 	}
-	public NeuralSprite(int row, int col, int feature, Object lock, Node[][] maze, Player player) throws Exception {
+	public NeuralSprite(int row, int col, int feature, Object lock, Node[][] maze, Player player, int counter) throws Exception {
 		this.row = row;
 		this.col = col;
 		this.feature =feature;
@@ -67,7 +67,7 @@ public class NeuralSprite extends Sprite implements Runnable{
 				//Different sleep time per spider type
 				Thread.sleep(500 * feature/2);
 				//Find the path to take
-				if(feature != 9){
+				if(feature != 13){
 					traverse(node.getRow(), node.getCol(), traversator);
 				}
 				// Move around the maze if within range
