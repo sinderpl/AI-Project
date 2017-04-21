@@ -106,8 +106,19 @@ public class GameRunner implements KeyListener{
 			return false;
 		}
 		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 14){
+			JFrame winning = new JFrame("Winning !!");
+			winning.setLayout(new GridLayout(1, 1));
+			winning.setSize(400, 300);
+			JPanel panel = new JPanel(new FlowLayout());
+			JLabel label = new JLabel("Congratulations you won !");
+			panel.add(label);
+			winning.add(panel);
+			winning.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+			winning.setVisible(true);
+			
 			System.out.println("Congratulations you Won!!!");
-			System.exit(0);
+			//System.exit(0);
 		}else{
 			return false; //Can't move
 		}
