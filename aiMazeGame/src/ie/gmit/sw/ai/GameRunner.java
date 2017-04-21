@@ -17,6 +17,11 @@ public class GameRunner implements KeyListener{
 	private int currentRow;
 	private int currentCol;
 	
+	//Labels
+	public JLabel swordLabel;
+	public JLabel healthLabel;
+	public JLabel bombLabel ;
+	
 	public GameRunner(String mazeType) throws Exception{
 		
 		
@@ -33,11 +38,22 @@ public class GameRunner implements KeyListener{
     	view.setPreferredSize(d);
     	view.setMinimumSize(d);
     	view.setMaximumSize(d);
+    	
+    	
+    	JPanel panel = new JPanel();
+    	swordLabel = new JLabel("Sword: " + 0);
+    	healthLabel = new JLabel("Health: " + 0);
+    	bombLabel = new JLabel("Bomb: " + 0);
+    	panel.add(swordLabel);
+    	panel.add(healthLabel);
+    	panel.add(bombLabel);
 
     	JFrame f = new JFrame("GMIT - B.Sc. in Computing (Software Development)");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.addKeyListener(this);
-        f.getContentPane().setLayout(new FlowLayout());
+        FlowLayout layout = new FlowLayout();
+        f.getContentPane().setLayout(layout);
+        view.add(panel);
         f.add(view);
         f.setSize(1000,1000);
         f.setLocation(100,100);
@@ -51,6 +67,7 @@ public class GameRunner implements KeyListener{
     	model.set(currentRow, currentCol, new Node(currentRow, currentCol, 5)); //A Spartan warrior is at index 5
     	updateView(); 		
 	}
+
 	
 	private void updateView(){
 		currentRow = model.getPlayer().getRow();

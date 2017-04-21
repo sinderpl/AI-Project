@@ -68,4 +68,8 @@ public class AStarTraversator implements Traversator{
 	public Node getNextNode() {
 		return path.getFirst();
 	}
+	
+	public LinkedList<Node>  getPath(){
+		return path;
+	}
 }
