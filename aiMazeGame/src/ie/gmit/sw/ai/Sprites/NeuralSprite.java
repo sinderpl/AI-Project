@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import ie.gmit.sw.ai.nn.EngageNN;
 import ie.gmit.sw.ai.nn.SpiderCharacter;
+import ie.gmit.sw.ai.FuzzyLogic.Engageable;
 import ie.gmit.sw.ai.Nodes.Node;
 import ie.gmit.sw.ai.Nodes.Player;
 import ie.gmit.sw.ai.Traversators.AStarTraversator;
@@ -124,15 +125,17 @@ public class NeuralSprite extends Sprite implements Runnable{
 			
 			
 			int action = enn.action(spiderHealth, enemyWeapon, proximity, playerHealth);
-			System.out.println("action: " + action);
-			System.out.println("data set: " + spiderHealth +" " +  enemyWeapon  +" " +   proximity +" " +   playerHealth);
 			if (action == 1){
 				System.out.println("action is attack");
-				//EngageFuzzy ef = new EngageFuzzy();
-				//player.setHealth(ef.fight(player.getSwordStrength(), player.getHealth(), this.strength));
+				Engageable ef= new Engageable();
+				playerHealth = ef.engage(player.getWeapon(), this.strength, currentHealth );
+				
+				player.setHealth(playerHealth);
+				health -= enemyWeapon * 40;
 			}
 			else if (action == 2) {
 				System.out.println("action is run");
+				randomMove();
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -156,16 +159,13 @@ public class NeuralSprite extends Sprite implements Runnable{
 				if(node.getHeuristic(player) < 2){
 					System.out.println("engaging");
 					engageNN();
-					//roam();     
 				}
 				else if(canMove && node.getHeuristic(player) < 10  ){
 					System.out.println("roaming");
 					roam();
-					//engageNN();
 				}
 				
 				else {   
-					//System.out.println("random move");
 					randomMove();       
 				}
 			} catch (InterruptedException e) {
