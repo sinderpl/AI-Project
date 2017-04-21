@@ -35,22 +35,21 @@ public class Maze {
 		//Place the Door(Goal Node) in the maze
 		placeDoor(14, -1);
 		
-		
-		featureNumber = 2;
+		featureNumber = 10;
 		
 		//Fuzzy spiders
-		//addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
-		//addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
-		////addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
-		//addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
+		addFeature(6, -1, featureNumber); //6 is a Black Spider, 0 is a hedge
+		addFeature(7, -1, featureNumber); //7 is a Blue Spider, 0 is a hedge
+		addFeature(8, -1, featureNumber); //8 is a Brown Spider, 0 is a hedge
+		addFeature(9, -1, featureNumber); //9 is a Green Spider, 0 is a hedge
 		
 		//Neural spiders
-		//addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
-		//addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
+		addFeature(10, -1, featureNumber); //: is a Grey Spider, 0 is a hedge
+		addFeature(11, -1, featureNumber); //; is a Orange Spider, 0 is a hedge
 		
 		//Number 12 is the main neural network spider, It attacks/runs away depending on the NN
 		addFeature(12, -1, featureNumber); //< is a Red Spider, 0 is a hedge
-		//addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
+		addFeature(13, -1, featureNumber); //= is a Yellow Spider, 0 is a hedge
 	}
 	
 	public void placePlayer(int feature, int replace){

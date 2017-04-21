@@ -153,9 +153,10 @@ public class GameRunner implements KeyListener{
 			return false;
 			}
 			else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() >5 && model.get(row, col).getNodeType() <14){
-			sprite = model.getSpriteId(row, col);
+			//sprite = model.getSpriteId(row, col);
 			//sprite.engage();
-			sprite.setId(-1);
+			//sprite.setId(-1);
+			updatePlayerStats();
 			if(model.getPlayer().getHealth() > 1){
 				model.set(row, col, new Node(row,col,-1));
 			}else{
