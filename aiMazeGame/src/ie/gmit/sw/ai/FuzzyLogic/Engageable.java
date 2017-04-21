@@ -2,7 +2,6 @@ package ie.gmit.sw.ai.FuzzyLogic;
 
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
-import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 public class Engageable {
 	
@@ -15,11 +14,8 @@ public class Engageable {
 	        fis.setVariable("angerLevel", spiderhealth);
 	        fis.setVariable("currentLife", currentLife);
 	        fis.evaluate();
-	        
-	        Variable lifeForce = fb.getVariable("lifeForce");
 
-	        // Print ruleSet
-	        System.out.println("LifeForce: " + fb.getVariable("lifeForce").getValue() +""); //Output end result
-			return fb.getVariable("lifeForce").getValue();
+	        System.out.println("Player Health: " + fb.getVariable("lifeForce").getValue() +""); //Output end result
+			return Math.round(fb.getVariable("lifeForce").getValue());
 	}
 }

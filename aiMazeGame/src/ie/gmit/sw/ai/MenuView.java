@@ -113,7 +113,7 @@ public class MenuView extends JFrame{
 
 	//Start the game 
 	public void startGame() throws Exception{
-		new GameRunner(mazeType);
+		//new GameRunner(mazeType);
 	}
 	
 	
@@ -128,9 +128,9 @@ public class MenuView extends JFrame{
 			this.setVisible(false);
 	}
 	
-	public static void main(String[] args) throws Exception{
-		MenuView view = new MenuView();
-	}
+//	public static void main(String[] args) throws Exception{
+//		MenuView view = new MenuView();
+//	}
 	
 	
 }	

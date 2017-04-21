@@ -61,7 +61,6 @@ public class NeuralSprite extends Sprite implements Runnable{
 
 	@Override
 	public void run() {
-		long time = System.currentTimeMillis();
 		while(true){
 			try {
 				//Different sleep time per spider type
@@ -182,5 +181,4 @@ public class NeuralSprite extends Sprite implements Runnable{
 			canMove = false;
 		}
 	}
-
 }

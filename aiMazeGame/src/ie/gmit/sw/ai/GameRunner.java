@@ -23,7 +23,7 @@ public class GameRunner implements KeyListener{
 	public JLabel healthLabel;
 	public JLabel bombLabel ;
 	
-	public GameRunner(String mazeType) throws Exception{
+	public GameRunner() throws Exception{
 		
 		
 		model = new Maze(MAZE_DIMENSION);
@@ -44,10 +44,8 @@ public class GameRunner implements KeyListener{
     	JPanel panel = new JPanel();
     	weaponLabel = new JLabel("Weapon: None");
     	healthLabel = new JLabel("Health: " + 100);
-    	bombLabel = new JLabel("Bomb: " + 0);
     	panel.add(weaponLabel);
     	panel.add(healthLabel);
-    	panel.add(bombLabel);
 
     	JFrame f = new JFrame("GMIT - B.Sc. in Computing (Software Development)");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,6 +76,7 @@ public class GameRunner implements KeyListener{
 	}
 
     public void keyPressed(KeyEvent e) {
+    	updatePlayerStats();
         if (e.getKeyCode() == KeyEvent.VK_RIGHT && currentCol < MAZE_DIMENSION - 1) {
         	if (isValidMove(currentRow, currentCol + 1)) currentCol++;   		
         }else if (e.getKeyCode() == KeyEvent.VK_LEFT && currentCol > 0) {
@@ -91,14 +90,13 @@ public class GameRunner implements KeyListener{
         }else{
         	return;
         }
-        
         updateView();       
     }
     public void keyReleased(KeyEvent e) {} //Ignore
 	public void keyTyped(KeyEvent e) {} //Ignore
 	
-	private void updatePlayerStats(){
-		healthLabel.setText("Health: " + (int)model.getPlayer().getHealth() * 10);
+	public void updatePlayerStats(){
+		healthLabel.setText("Health: " + (int)model.getPlayer().getHealth());
 		if(model.getPlayer().isSword()){
 			weaponLabel.setText("Weapon: Sword");
 		}
@@ -117,6 +115,19 @@ public class GameRunner implements KeyListener{
 		if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1){
 			model.set(currentRow, currentCol, model.get(row, col));
 			model.set(row, col, model.getPlayer());
+			if(model.getPlayer().getHealth() ==0){
+				System.out.println("GAMEOVER");
+				JFrame winning = new JFrame("Lost !!");
+				winning.setLayout(new GridLayout(1, 1));
+				winning.setSize(400, 300);
+				JPanel panel = new JPanel(new FlowLayout());
+				JLabel label = new JLabel("Sorry you lost !");
+				panel.add(label);
+				winning.add(panel);
+				winning.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
+				winning.setVisible(true);
+			}
 			return true;
 		}else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 1){
 			model.get(row, col).setNodeType(0);
@@ -147,12 +158,28 @@ public class GameRunner implements KeyListener{
 			model.getPlayer().setHbomb(true);
 			updatePlayerStats();
 			return false;
-	}
-//			else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() >5 && model.get(row, col).getNodeType() <14){
-//			sprite = model.getSpriteId(row, col);
-//			sprite.engage();
-//			return false;
-//		}
+			}
+			else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() >5 && model.get(row, col).getNodeType() <14){
+			sprite = model.getSpriteId(row, col);
+			//sprite.engage();
+			sprite.setId(-1);
+			if(model.getPlayer().getHealth() > 1){
+				model.set(row, col, new Node(row,col,-1));
+			}else{
+				System.out.println("GAMEOVER");
+				JFrame winning = new JFrame("Lost !!");
+				winning.setLayout(new GridLayout(1, 1));
+				winning.setSize(400, 300);
+				JPanel panel = new JPanel(new FlowLayout());
+				JLabel label = new JLabel("Sorry you lost !");
+				panel.add(label);
+				winning.add(panel);
+				winning.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
+				winning.setVisible(true);
+			}
+			return false;
+		}
 		else if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getNodeType() == -1|| model.get(row, col).getNodeType() == 14){
 			JFrame winning = new JFrame("Winning !!");
 			winning.setLayout(new GridLayout(1, 1));
@@ -195,6 +222,8 @@ public class GameRunner implements KeyListener{
 		sprites[14] = new ItemSprite("Door", "resources/door.png");
 		return sprites;
 	}
-	
+	public static void main(String[] args) throws Exception{
+		GameRunner view = new GameRunner();
+	}
 	
 }

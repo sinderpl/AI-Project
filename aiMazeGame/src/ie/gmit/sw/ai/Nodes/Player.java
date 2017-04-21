@@ -32,10 +32,8 @@ public class Player extends Node {
 	
 	public void startTraversator(){
 		//while(true){
-			System.out.println("player path");
 			traversator.traverse(maze, maze[getRow()][getCol()]);
 			playerPath = traversator.getPath();		
-			System.out.println(playerPath);
 		//}
 	}
 
@@ -73,11 +71,11 @@ public class Player extends Node {
 
 	public double getWeapon() {
 		if(isSword())
-			return 3.0;
+			return 30.0;
 		if(isBomb())
-			return 6.0;
+			return 60.0;
 		if(isHbomb())
-			return 9.0;
+			return 90.0;
 		return 0;
 	}
 
